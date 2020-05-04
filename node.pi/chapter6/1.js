@@ -4,6 +4,24 @@
 
 // console.log("\u00bd".length);
 
-var str = "深入浅出node.js";
-var buf = new Buffer(str, 'utf-8');
-console.log(buf);
+// var str = "深入浅出node.js";
+// var buf = new Buffer(str, 'utf-8');
+// console.log(buf);
+
+var buf = new Buffer(100);
+console.log(buf.length);
+console.log(buf[10]);
+
+buf[10] = 100;
+console.log(buf[10]);
+
+buf[20] = -100;
+console.log(buf[20]);
+
+buf[21] = 300;
+console.log(buf[21]);
+
+buf[22] = 3.1415;
+console.log(buf[22]);
+
+
