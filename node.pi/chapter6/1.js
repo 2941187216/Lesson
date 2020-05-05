@@ -24,4 +24,10 @@ console.log(buf[21]);
 buf[22] = 3.1415;
 console.log(buf[22]);
 
+var  pool ;
+function allocPool () {
+    pool = new SlowBuffer(Buffer.poolSize);
+    pool.used = 0;
+} 
+    
 
