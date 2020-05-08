@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* css 4 引入了variable */
+        /* 面底层， 以及最新的技术点， 并能升入实验 */
+        :root { 
+            /* 根上 */
+            --bgcolor: blue;
+            --color:red;
+        }
+
+        p {
+            color: var(--color) 
+            /* var 使用变量 */
+        }
+
+        div {
+            background-color: var(--bgcolor);
+            color: var(--color);
+        }
+    </style>
+</head>
+<body>
+    <p>吴数据库地方</p>
+    <div>挺好的</div>
+</body>
+</html>
