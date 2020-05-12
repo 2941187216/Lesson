@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+
+            width: 200px;
+
+            height: 200px;
+
+            margin: 200px auto;
+
+            position: relative;
+            /*给父元素相对定位*/
+
+            transform-style: preserve-3d;
+            /*父元素设为3d*/
+
+            transform: perspective(1000px)  rotateX(-20deg) rotateY(-20deg);
+            /*设置父元素得景深*/
+
+        }
+
+        .box div {
+
+            position: absolute;
+            /*盒子每面的默认样式*/
+
+            width: 200px;
+
+            height: 200px;
+
+            border: 1px solid #000000;
+
+            text-align: center;
+
+            line-height: 200px;
+
+        }
+
+        .box div:nth-child(1) {
+
+            transform: translateZ(100px);
+            /*前面盒子宽为200px所以先向前位移100px*/
+
+            /* background: rgba(0, 0, 255, 0.2); */
+            background-color: red;
+
+        }
+
+        .box div:nth-child(2) {
+
+            transform: translateZ(-100px);
+            /*第二元素向后位移100px 这样盒子前后面就有了*/
+
+            /* background: rgba(0, 255, 0, 0.2); */
+            background-color: red;
+
+        }
+
+        .box div:nth-child(3) {
+
+            transform: rotateX(90deg) translateZ(100px);
+            /*第三个让他平躺下，也就是x轴旋转90°，旋转后在位移，这样就会向他面对的那面去位移*/
+
+            /* background: rgba(255, 0, 0, 0.2); */
+            background-color: green;
+
+        }
+
+        .box div:nth-child(4) {
+
+            transform: rotateX(90deg) translateZ(-100px);
+
+            /* background: rgba(255, 255, 0, 0.2); */
+
+            background-color: green;
+
+        }
+
+        .box div:nth-child(5) {
+
+            transform: rotateY(90deg) translateZ(-100px);
+
+            background: rgba(0, 255, 255, 0.2);
+
+            /* background-color: blue; */
+
+        }
+
+        
+        /*总结就是先旋转在位移，z轴就是div面向那面那面将会是z所以说先旋转在位移这样位移也就是100px 和 -100px 的事*/
+
+        .box div:nth-child(6) {
+
+            transform: rotateY(90deg) translateZ(100px);
+
+            background: rgba();
+
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+
+        <div>前</div>
+
+        <div>后</div>
+
+        <div>上</div>
+
+        <div>下</div>
+
+        <div>左</div>
+
+        <div>右</div>
+
+    </div>
+</body>
+
+</html>
