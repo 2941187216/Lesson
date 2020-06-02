@@ -3,7 +3,6 @@ import React from "react";
 import Search from "./Search";
 import Results from "./Results";
 
-
 class Main extends React.Component {
   // 集列表， 搜索于一体 怎么做？ 
   constructor() {
@@ -41,7 +40,6 @@ class Main extends React.Component {
       })
   }
 
-
   render() {
     return (
       <div>
@@ -53,6 +51,5 @@ class Main extends React.Component {
     )
   }
 }
-
 
 export default Main

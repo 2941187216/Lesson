@@ -1,14 +1,12 @@
 import React from "react";
 // StatefullComponent  StatelessComponent
 
-
-class Single extends React.Component {
+class Search extends React.Component {
   render() {
     return (
-      <div>Single</div>
+      <div>Search</div>
     )
   }
 }
 
-
-export default Single;
+export default Search;
