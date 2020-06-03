@@ -1,6 +1,7 @@
 import React from "react";
 // StatefullComponent  StatelessComponent
 import Search from "./Search";
+import Header from "./Header";
 import Results from "./Results";
 
 class Main extends React.Component {
@@ -23,19 +24,46 @@ class Main extends React.Component {
     const searchTerm = params.searchTerm || undefined;
     this.loadBeers(searchTerm); // 
   }
+
+  componentDidUpdate(prevProps) {
+    // console.log('did update')
+    // console.log(prevProps);
+    const currentSearchTerm = this.props.match.params.searchTerm; // 新的参数
+    const oldSearchTerm = prevProps.match.params.searchTerm;
+    // console.log(oldSearchTerm, currentSearchTerm);
+    if (currentSearchTerm !== oldSearchTerm) {
+      this.loadBeers(currentSearchTerm)
+    }
+  }
+
   // = hops 在业务上有什么用？
   // es6 概念 默认赋值
   loadBeers(searchTerm = "hops") {
-   
+    const localStorageBeers = localStorage.getItem(`search-${searchTerm}`) 
+    if (localStorageBeers) {
+      const localBeers = JSON.parse(localStorageBeers);
+      this.setState({
+        beers: localBeers,
+        loading: false
+      })
+      return ;
+    }
     fetch(`http://api.react.beer/v2/search?q=${searchTerm}&type=beer`) // api 地址
       .then(data => data.json())
       .then(data => {
         
         const beers = data.data || [];
+        
         this.setState({
           loading: false,
           beers
         });
+        // 业务
+        // 列表记录相关 searchTerm 变化
+        localStorage.setItem(
+          `search-${searchTerm}`,
+          JSON.stringify(this.state.beers)
+        )
         console.log(data)
       })
   }
@@ -43,6 +71,7 @@ class Main extends React.Component {
   render() {
     return (
       <div>
+        <Header siteName="Beer me!" />
         <Search /> 
         {/* 搜索组件 */}
         <Results beers={this.state.beers}
