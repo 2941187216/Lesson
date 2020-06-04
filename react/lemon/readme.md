@@ -28,3 +28,6 @@
 
 react react-dom
 @types/react @types/react-dom  ts + react  @babel/core
+
+- yarn add  webpack-dev-server --save-dev
+- 
