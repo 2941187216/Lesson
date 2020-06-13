@@ -1,3 +1,9 @@
+- 首页有问题，
+  1. 首页recommend bug
+    - 专辑图片
+    给数据建模  这种情况下可以考虑 加model层
+    MVVM React 界面由数据驱动， 前端的设计模式
+    MVC Model View  Controller 后端web开发模式
 1. 做react/vue项目，仿一个音乐类的
 2. 做一个上线的业务 思路 架构(结构) 技能点
 
