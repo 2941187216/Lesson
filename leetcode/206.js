@@ -27,4 +27,5 @@ var reverseList = function(head) {
     }
     // 反转结束后，pre 就会变成新链表的头结点
     return pre
+    
 };
