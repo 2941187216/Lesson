@@ -16,8 +16,9 @@ var dailyTemperatures = function(T) {
       }
       // 注意栈里存的不是温度值，而是索引值，这是为了后面方便计算
       stack.push(i)
+      
     }
     // 返回结果数组
     return res 
-    
+
 };
