@@ -19,4 +19,5 @@ var dailyTemperatures = function(T) {
     }
     // 返回结果数组
     return res 
+    
 };
