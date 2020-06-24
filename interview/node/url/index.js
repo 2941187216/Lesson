@@ -9,7 +9,7 @@ const urlString = "http://baidu.com:8080/test/h?query=js&a=1#node"; // url 字�
 function getQueryString(urlStr) { // 查询对象
   var obj = new Object();
   if (urlStr.indexOf("?") != -1) { // 查询参数部分
-    var queryStr = urlString.split('?')[1];
+    var queryStr = urlStr.split('?')[1];
     if (urlStr.indexOf("#") != -1) {
       // 前端如果也有node 那样的url 模块就好了， 
       queryStr = queryStr.split('#')[0];
