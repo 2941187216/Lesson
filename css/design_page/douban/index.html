@@ -26,7 +26,7 @@
         <h1>
             <a href="#">豆瓣</a>
         </h1>
-        <anony-srh>
+        <div class="anony-srh">
             <form action="" method="GET">
                 <span class="inp">
                     <input type="text" maxlength="60" size="12" placeholder="书籍、电影、音乐、小组、小站、成员" name="q" autocomplete="off">
@@ -35,7 +35,31 @@
                     <input type="submit" value="搜索">
                 </span>
             </form>
-        </anony-srh>
+        </div>
+    </div>
+
+    <div id="anony-reg-new"  style="background-image: url(https://img9.doubanio.com/view/puppy_image/raw/public/16ad990ec23uwn790d4.jpg)">
+        <div class="wrapper">
+            <div class="login">
+                <iframe style="height: 300px; width: 300px;" frameborder="0" src="https://accounts.douban.com/passport/login_popup?login_source=anony"></iframe>
+            </div>
+            <div class="app">
+                <p class="app-title">"豆瓣"
+                    <span>6.0</span>
+                </p>
+                <p class="app-slogan"></p>
+                <a href="#" class="link-app">下载豆瓣 App</a>
+                <div class="app-qr">
+                    <a href="#" class="link-qr" id="expand-qr">
+                        <img src="https://img3.doubanio.com/f/sns/0c708de69ce692883c1310053c5748c538938cb0/pics/sns/anony_home/icon_qrcode_green.png" width="28" height="28">
+                    </a>
+                    <div class="app-qr-expand">
+                        <img src="" width="160" height="160">
+                        <p>iOS / Andriod 扫码直接下载</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

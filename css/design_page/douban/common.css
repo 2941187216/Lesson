@@ -17,9 +17,16 @@ a:visited {
     text-decoration: none;
 }
 
-body, div, dl, dt, dd, ul, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, blockquote{
+body, div, dl, dt, dd, ul, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, blockquote {
     margin: 0;
     padding: 0;
+}
+
+input, button, textarea, select, optgroup, option {
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
 }
 
 body, td, th {
@@ -44,6 +51,17 @@ h1 {
     /* margin: 0;
     padding: 0 0 15px 0;*/
     line-height: 1.1; 
+}
+
+form {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+input {
+    margin-right: 3px;
+    vertical-align: middle;
 }
 #anony-nav {
     width: 1080px;
@@ -127,5 +145,232 @@ h1 {
     height: 34px;
     line-height: 10em;
 }
+
+#anony-nav .anony-srh {
+    position: relative;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align: middle;
+    width: 270px;
+    height: 30px;
+    border: 1px solid #c3c3c3;
+}
+
+#anony-nav .anony-srh .inp {
+    display: block;
+    height: 30px;
+    overflow: hidden;
+}
+#anony-nav .anony-srh .inp input {
+    width: 240px;
+    border: none;
+    font-size: 20px;
+    padding: 5px;
+}
+#anony-nav .anony-srh .bn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    cursor: pointer;
+    background: url(https://img3.doubanio.com/f/sns/f71f15922ebd7c0ff0ea0e7a25577529efd8981a/pics/icon/bn_srh_1.png) 50% 50% no-repeat;
+}
+#anony-nav .anony-srh .bn input {
+    border: none;
+    background: transparent;
+    overflow: hidden;
+    width: 30px;
+    height: 30px;
+    font-size: 0;
+    color: transparent;
+    cursor: pointer;
+}
+
+#anony-reg-new {
+    margin-bottom: 25px;
+    background-size: contain;
+    background-position:  calc(50% - 305px) top;
+    background-repeat: no-repeat;
+    background-color: #edf4ed;
+}
+
+#anony-reg-new .wrapper:after {
+    content: "\0020";
+    display: block;
+    clear: both;
+}
+
+.wrapper {
+    width: 950px;
+    margin: 0 auto;
+}
+
+#anony-reg-new .wrapper:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    background-repeat: no-repeat;
+    background-position: 0 -150px;
+}
+
+
+
+#anony-reg-new .wrapper {
+    position: relative;
+    padding: 0 0 4px;
+    overflow: visible;
+    zoom: 1;
+}
+
+#anony-reg-new .login {
+    width: 300px;
+    float: right;
+    font-size: 0;
+    letter-spacing: -.31em;
+}
+
+#anony-reg-new .wrapper .login, 
+#anony-reg-new .wrapper .app {
+    z-index: 2;
+} 
+
+#anony-reg-new .wrapper .login {
+    position: relative;
+}
+
+#anony-reg-new .app {
+    position: absolute;
+    height: 120px;
+    top: 0;
+    bottom: 0;
+
+}
+
+/* @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx), (min-resolution: 192dpi)
+#anony-reg-new .app {
+    margin: auto 0 auto 460px;
+} */
+
+#anony-reg-new .app-title {
+    margin: 7px 0;
+    font-size: 25px;
+    color: #111111;
+    line-height: 24;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+#anony-reg-new .app-title span {
+    color: #111111;
+    margin-left: 10px;
+    font-weight: 100;
+}
+
+
+#anony-reg-new .app-slogan {
+    margin: 0 0 18px;
+    font-size: 0;
+    color: #111111;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+#anony-reg-new .app-slogan:after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+}
+
+#anony-reg-new .link-app {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    padding: 9px 21px;
+    margin-right: 2px;
+    vertical-align: top;
+    border-radius: 2px;
+    font-size: 12px;
+    line-height: 1;
+}
+
+#anony-reg-new .link-app:link, #anony-reg-new .link-app:visited, #anony-reg-new .link-app:hover, #anony-reg-new .link-app:active {
+    background: #00B51D;
+    color: #FFF;
+}
+
+#anony-reg-new .app-qr {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    position: relative;
+}
+
+#anony-reg-new .link-qr {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    border: 1px solid #48aa0d;
+    border-radius: 2px;
+}
+#anony-reg-new .link-qr:link, #anony-reg-new .link-qr:visited, #anony-reg-new .link-qr:hover, #anony-reg-new .link-qr:active {
+    background: transparent;
+}
+
+img {
+    width: 28px;
+    height: 28px;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+a img {
+    border-width: 0;
+    vertical-align: middle;
+}
+
+#anony-reg-new .app-qr-expand {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px 20px 5px;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 13px;
+    color: #666666;
+    background: #fff;
+    line-height: 13px;
+    white-space: nowrap;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
