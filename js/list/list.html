@@ -1,0 +1,54 @@
+<script>
+    let node = {
+        val: 1
+    }
+    let node2 = {
+        val: 2
+    }
+    let node3 = {
+        val: 3
+    }
+    node.next = node2;
+    node2.next = node3;
+    console.log(node);
+    // 遍历链表
+    let current = node;
+    while (current) {
+        console.log(current.val);
+        current = current.next;
+    }
+
+    
+    // 1 -> 2 -> 3 -> 4 -> 5 -> NULL
+    // 奇链表: 1 -> 3 -> 5
+    // 偶链表：2 -> 4
+    // 奇链表.next = 偶链表
+    var oddEventList = function (head) {
+        let l1 = { val: null, next: null }, l1Current = l1;
+        let l2 = { val: null, next: null }, l2Current = l2;
+        let current = head;
+        i = 1;
+        while (current) {
+            // console.log(current, l1Current, l2Current)
+            if (i % 2) {
+                l1Current.next = current;
+                l1Current = l1Current.next;
+            } else {
+                l2Current.next = current;
+                l2Current = l2Current.next;
+            }
+            i++;
+            current = current.next;
+        }
+        // 去掉尾巴
+        if (i % 2) {
+            l1Current.next = null;
+        } else {
+            l2Current.next = null;
+        }
+        l1Current.next = l2.next;
+        return l1.next
+    }
+
+    oddEventList({ val: 1, next: { val: 2, next: null } })
+</script>
