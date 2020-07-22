@@ -5,7 +5,7 @@ function Recommend(props) {
   console.log(recommendList);
   return (
     <>
-      Recommend
+      Recommenddadasd
     </>
   )
 }
