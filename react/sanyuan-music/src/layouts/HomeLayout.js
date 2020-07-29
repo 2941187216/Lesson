@@ -1,8 +1,7 @@
-import React from "react";
+import React from 'react';
 import { renderRoutes } from "react-router-config";
-import { Top, Tab, TabItem } from './HomeLayout.style.js';
+import { Top, TabItem, Tab } from './HomeLayout.style';
 import { NavLink } from 'react-router-dom';
-
 function Home(props) {
   const { route } = props;
   return (
@@ -25,7 +24,7 @@ function Home(props) {
           <TabItem><span>排行榜</span></TabItem>
         </NavLink>
       </Tab>
-    {renderRoutes(route.routes)}
+      {renderRoutes(route.routes)}
     </>
   )
 }

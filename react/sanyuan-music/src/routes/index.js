@@ -11,7 +11,6 @@ import HomeLayout from '../layouts/HomeLayout';
 const RecommendComponent = lazy(() => import("../application/Recommend/"))
 const SingersComponent = lazy(() => import("../application/Singers/"))
 
-
 const SuspenseComponent = Component => props => {
   return (
     <Suspense fallback={null}>
@@ -39,7 +38,8 @@ export default [{
         },
         {
           path: '/singers',
-          component: SuspenseComponent(SingersComponent)
+          component: SuspenseComponent(SingersComponent),
+          key: 'singers'
         },
         // {
         //   path: '/rank',
