@@ -1,0 +1,29 @@
+.ant-col-red {
+    color: #fff;
+}
+.person-content_member .ant-col{
+    text-align: center;
+}
+.person-content_null{
+    font-size: .814815rem;
+}
+.person-content_member .ant-col{
+    text-align: center;
+    overflow-wrap: normal;
+}
+.ant-col-red{
+    width: 1.481481rem;
+    height: .555556rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .092593rem;
+}
+.ant-col-red div{
+    background-color: red;
+    width: 80%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
