@@ -31,6 +31,9 @@
     /* margin-right: 28px; */
     margin-top: -35px;
 }
+#showPersonalCenter{
+	margin-right: .092593rem;
+}
 header{
 	width:1200px;
 	margin:0 auto;
@@ -42,7 +45,7 @@ header{
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 9999;
+	z-index: 5;
 	overflow: hidden;
 	text-align: center;
 }

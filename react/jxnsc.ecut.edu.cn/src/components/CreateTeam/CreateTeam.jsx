@@ -8,10 +8,21 @@ import axios from 'axios'
 // import PersonSetting from './PersonSetting/PersonSetting';
 import bgi from '../../assets/img3/bg.png'
 import Top from '../common/Top/Top';
+import { axiosInstance } from '../../api/config';
+import { Link } from 'react-router-dom';
+import Loading from '../common/Loading/Loading';
 // let a = 1
 // let arr = [1]
 export default function PersonalCenter(props) {
     // console.log('11111111111111111',props)
+    useEffect(() => {
+        axiosInstance.post('/dictionary/getAllUniversityName')
+            .then(res => {
+                setSchoolName(res.data.data)
+            })
+    }, [])
+    const [schoolNameList, setschoolNameList] = useState([])
+
     const [content, setContent] = useState([
         {
             key: 'schoolName',
@@ -38,50 +49,7 @@ export default function PersonalCenter(props) {
             type: '队长身份证号码',
             content: '152462666',
         }])
-    const [schoolName, setSchoolName] = useState([
-        '江西水利职业学院'
-        , '南昌工学院'
-        , '江西应用技术职业学院'
-        , '江西航空职业技术学院'
-        , '南昌理工学院'
-        , '吉安职业技术学院'
-        , '江西农业大学信息中心'
-        , '井冈山大学'
-        , '江西农业工程职业学院'
-        , '赣南医学院'
-        , '新余学院'
-        , '共青科技职业学院'
-        , '宜春幼儿师范高等专科学校'
-        , '华东交通大学'
-        , '南昌师范学院'
-        , '江西生物科技职业学院'
-        , '江西医学高等专科学校'
-        , '江西机电职业技术学院'
-        , '江西师范高等专科学校'
-        , '上饶职业技术学院'
-        , '赣州师范高等专科学校'
-        , '江西应用工程职业学院'
-        , '江西旅游商贸职业学院'
-        , '抚州职业技术学院'
-        , '上饶师范学院'
-        , '宜春职业技术学院'
-        , '南昌航空大学'
-        , '南昌职业学院'
-        , '江西泰豪动漫职业学院'
-        , '南昌工程学院'
-        , '东华理工大学'
-        , '赣西科技职业学院'
-        , '江西新能源科技职业学院'
-        , '南昌大学'
-        , '江西司法警官职业学院'
-        , '江西应用科技学院'
-        , '江西工业贸易职业技术学院'
-        , '江西师范大学'
-        , '九江职业技术学院'
-        , '景德镇陶瓷大学'
-        , '赣南卫生健康职业学院'
-        , '江西建设职业技术学院'
-        , '江西财经大学'])
+    const [schoolName, setSchoolName] = useState([])
     const [presonOrSetting, setPresonOrSetting] = useState(true)
     const [changeInfo, setChangeInfo] = useState(false)
     const [schoolNameValue, setSchoolNameValue] = useState('')
@@ -96,7 +64,7 @@ export default function PersonalCenter(props) {
     const [teacherSchoolValue, setTeacherSchoolValue] = useState('')
     const [schoolRadio, setSchoolRadio] = useState('本科')
     const [protocol, setProtocol] = useState(false)
-    const [agree ,setAgree] = useState('')
+    const [agree, setAgree] = useState('')
     const [teacherN, setTeacherN] = useState(1)
     const [teacherNumber, setTeacherNumber] = useState([1])
     const changeInfoTrue = () => {
@@ -126,34 +94,33 @@ export default function PersonalCenter(props) {
     const changeProfessionalNameValue = (e) => {
         setProfessionalNameValue(e.target.value)
     }
-    const handleCreateTeam = () =>{
-        axios({
+    const handleCreateTeam = () => {
+        axiosInstance({
             method: 'POST',
-            url: 'http://192.168.43.66/user/createteaminfo',
+            url: '/user/createteaminfo',
             data: {
-                'captainpid' : props.match.params.id,
+                'captainpid': props.match.params.id,
                 'teamtype': schoolRadio,
                 'team': professionaNamelValue,
                 'captain': nameValue,
                 'identitycard': idNumberValue,
                 'telphone': phoneValue,
-                'teacher':{
-                    'username': teacherNameValue,
-                    'telphone': teacherPhoneValue,
-                    'identitycard': teacherIdValue,
-                    'email': teacherMailboxlValue,
-                    'unit': teacherSchoolValue
-                }
+                'university': schoolNameValue
             }
         })
-        .then(function (response) {
-            console.log(response)
-            alert('添加成功')
-            // window.location.href = `#/presonalCenter/${}`
-        })
-        .catch(function (error) {
-            console.log(error)
-        })
+            .then(function (response) {
+                if (response.data.code == 200) {
+                    alert(response.data.msg)
+                    window.location.href = `#/presonalCenter/${props.match.params.id}`
+                } else {
+                    alert(response.data.msg)
+                    setProfessionalNameValue('')
+                }
+
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     }
 
 
@@ -189,7 +156,6 @@ export default function PersonalCenter(props) {
         // a += 1
         let n = teacherN
         n += 1
-        console.log(n)
         let arr = [...teacherNumber]
         arr.push(n)
         setTeacherN(n)
@@ -203,36 +169,32 @@ export default function PersonalCenter(props) {
     }
     const changeSchoolRadio = (e) => {
         setSchoolRadio(e.target.value);
-        console.log(schoolRadio)
     }
     let email = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
-    console.log(schoolRadio)
+    let scarr = []
+    if (schoolName.length > 0) {
+
+        schoolName.forEach((a) => {
+            scarr.push(a.name)
+        })
+    }
+    let idCard = /^(\d{18}|\d{17}\w{1})$/
     return (
         <div className='createTeam' >
             <div className="createTeam-bg">
                 <img src={bgi} alt="" />
             </div>
-            {protocol?<div className="createTeam-protocol">
-                <div className="createTeam-protocol_info">
-                    <div className='createTeam-protocol_text'>
-                        <p>网络安全协议是营造网络安全环境的基础，是构建安全网络的关键技术。设计并保证网络安全协议的安全性和正确性能够从基础上保证网络安全，避免因网络安全等级不够而导致网络数据信息丢失或文件损坏等
-                    信息泄露问题。在计算机网络应用中，人们对计算机通信的安全协议进行了大量的研究，以提高网络信息传输的安全性。</p></div>
-                    <div className="createTeam-protocol_yesOrNo">
-                        <div onClick={()=>{setProtocol(false);setAgree('我同意')}} className="yesProtocol">确认</div>
-                        <div className="noProtocol" onClick={()=>{setProtocol(false)}}>取消</div>
-                    </div>
-                </div>
-            </div>:null}
-            <Top id={props.match.params.id} person={'1'}/>
+            <Top id={props.match.params.id} person={'1'} />
             <div className="createTeam-content_bigTitle">创建队伍</div>
-        
+
             <div className='createTeam-content_form' >
 
                 {<div className='createTeam-content'>
                     <div className="createTeam-content_top createTeam-content_text">
                         <div className="createTeam-content_title"><h2>{'>> 基本信息'}</h2></div>
+                        <Link to={`/presonalCenter/${props.match.params.id}`}><div className="person-content_edit">返回</div></Link>
                     </div>
-                    <div className="createTeam-content_key">
+                    {schoolName.length == 0 ? <Loading /> : <><div className="createTeam-content_key">
                         <Row>
                             <Col span={8}><label >队伍类型</label></Col>
                             <Col span={16}>
@@ -244,94 +206,48 @@ export default function PersonalCenter(props) {
                                         onClick={changeSchoolRadio} id='vocationalColleges' name='typeSelete' /><label htmlFor="vocationalColleges">高职</label></div>
                             </Col>
                         </Row></div>
-                    {content.map((title, i) => {
-                        return (
-                            <div className={`createTeam-content_key createTeam-content_${title.key}`} key={i}>
-                                <Row>
-                                    <Col span={8}><label htmlFor={title.key}>{title.type}</label></Col>
-                                    <Col span={16}>{title.key == 'schoolName'
-                                        ?
-                                        <div>
-                                            <input id={title.key} value={schoolNameValue} onChange={changeSchoolNameValue} name="schoolName" list="schools" />
-                                            <datalist id="schools">
-                                                {schoolName.map((name, i) => {
-                                                    return (
-                                                        <option key={i} value={name}>{name}</option>
-                                                    )
-                                                })}
-                                            </datalist>
-                                        </div>
-                                        : <input value={i == 1 ? professionaNamelValue : i == 2 ? nameValue : i == 3 ? phoneValue : i == 4 ? idNumberValue : null} onChange={i == 1 ? changeProfessionalNameValue : i == 2 ? changeNameValue : i == 3 ? changePhoneValue : i == 4 ? changeIdNumberValue : null} type={i == 3 || i == 4 ? 'number' : 'text'} id={title.key} name={title.key} />}</Col>
-                                </Row>
-                            </div>
-                        )
-                    })}
-
-
-
-
-                </div>}
-                {<div className='createTeam-content'>
-                    <div className="createTeam-content_top createTeam-content_text">
-                        <div className="createTeam-content_title"><h2>{'>> 指导老师信息'}</h2></div>
-                    </div>
-                    <div className='createTeam-content_teacherKey'  >
-
-                        <div className='teacher-infos'>
-                            <div className='teacher-info'>
-                                <div className='teacher-label'><label htmlFor={`teacherName`}>{`姓名`}</label></div>
-                                <div className='teacher-input'><input value={teacherNameValue} onChange={changeTeacherNameValue} type="text" id={`teacherName`} /></div>
-                            </div>
-
-                            <div className='teacher-info'>
-                                <div className='teacher-label'><label htmlFor={`teacherEm`}>{`邮箱`}</label></div>
-                                <div className='teacher-input'><input value={teacherMailboxlValue} onChange={changeTeacherMailboxlValue} type="text" id={`teacherEm`} /></div>
-                            </div>
-                            <div className='teacher-info'>
-                                <div className='teacher-label'><label htmlFor={`teacherPhone`}>{`电话`}</label></div>
-                                <div className='teacher-input'><input value={teacherPhoneValue} onChange={changeTeacherPhoneValue} type="number" id={`teacherPhone`} /></div>
-                            </div>
-                            <div className='teacher-info'>
-                                <div className='teacher-label'><label htmlFor={`teacherId`}>{`身份证`}</label></div>
-                                <div className='teacher-input'><input value={teacherIdValue} onChange={changeTeacherIdValue} type="number" id={`teacherId`} /></div>
-                            </div>
-                            <div className='teacher-info'>
-                                <div className='teacher-label'><label htmlFor={`teacherSchool`}>{`单位`}</label></div>
-                                <div className='teacher-input'><input value={teacherSchoolValue} onChange={changeTeacherSchoolValue} type="text" id={`teacherSchool`} /></div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div className="createTeam-content_protocol">
-                        <input onClick={()=>{setAgree('我同意')}} checked={agree == '我同意'} type="radio" id='protocol' name='protocolSelete' /> <label htmlFor="protocol">我同意</label><span onClick={()=>{setProtocol(true)}} className='createTeam-content_protocolName'>网络协议</span>
-                    </div>
+                        {content.map((title, i) => {
+                            return (
+                                <div className={`createTeam-content_key createTeam-content_${title.key}`} key={i}>
+                                    <Row>
+                                        <Col span={8}><label htmlFor={title.key}>{title.type}</label></Col>
+                                        <Col span={16}>{title.key == 'schoolName'
+                                            ?
+                                            <div>
+                                                <input id={title.key} value={schoolNameValue} onChange={changeSchoolNameValue} name="schoolName" list="schools" />
+                                                <datalist id="schools">
+                                                    {schoolName.length > 0 ? schoolName.map((name, i) => {
+                                                        return (
+                                                            <option key={i} value={name.name}>{name.name}</option>
+                                                        )
+                                                    }) : null}
+                                                </datalist>
+                                            </div>
+                                            : <input value={i == 1 ? professionaNamelValue : i == 2 ? nameValue : i == 3 ? phoneValue : i == 4 ? idNumberValue : null} onChange={i == 1 ? changeProfessionalNameValue : i == 2 ? changeNameValue : i == 3 ? changePhoneValue : i == 4 ? changeIdNumberValue : null} type={i == 3 ? 'number' : 'text'} id={title.key} name={title.key} />}</Col>
+                                    </Row>
+                                </div>
+                            )
+                        })}</>}
                     <div className="createTeam-content_button">
                         {professionaNamelValue == ''
-                            ? <div className='failSubmit' onClick={() => { alert('非法的团队名称') }}>确认创建</div>
-                            : schoolNameValue == '' || !schoolName.includes(schoolNameValue)
-                                ? <div className='failSubmit' onClick={() => { alert('非法的学校名称') }}>确认创建</div>
-                                : nameValue == ''
-                                    ? <div className='failSubmit' onClick={() => { alert('非法的名字') }}>确认创建</div>
-                                    : phoneValue == '' || phoneValue.length != 11
-                                        ? <div className='failSubmit' onClick={() => { alert('非法的手机号码') }}>确认创建</div>
-                                        : idNumberValue == '' || idNumberValue.length != 18
-                                            ? <div className='failSubmit' onClick={() => { alert('非法的身份证') }}>确认创建</div>
-                                            : teacherNameValue == ''
-                                                ? <div className='failSubmit' onClick={() => { alert('非法的老师名字') }}>确认创建</div>
-                                                : teacherSchoolValue == ''
-                                                    ? <div className='failSubmit' onClick={() => { alert('非法的老师单位') }}>确认创建</div>
-                                                    : teacherPhoneValue.length != 11
-                                                        ? <div className='failSubmit' onClick={() => { alert('非法的老师手机号码') }}>确认创建</div>
-                                                        : teacherIdValue.length != 18
-                                                            ? <div className='failSubmit' onClick={() => { alert('非法的老师身份证') }}>确认创建</div>
-                                                            : !email.test(teacherMailboxlValue)
-                                                                ? <div className='failSubmit' onClick={() => { alert('非法的邮箱') }}>确认创建</div>
-                                                                : agree == ''
-                                                                ? <div className='failSubmit' onClick={() => { alert('请勾选协议') }}>确认创建</div>
-                                                                : <button className='createTeam-content_subBotton' onClick={handleCreateTeam} type="submit" value=''>确认创建</button>}
+                            ? <div className='failSubmit' onClick={() => { alert('团队名称不能为空') }}>确认创建</div>
+                            : schoolNameValue == ''
+                                ? <div className='failSubmit' onClick={() => { alert('学校名称不能为空') }}>确认创建</div>
+                                : !scarr.includes(schoolNameValue)
+                                    ? <div className='failSubmit' onClick={() => { alert('请按照提示填写学校') }}>确认创建</div>
+                                    : nameValue == ''
+                                        ? <div className='failSubmit' onClick={() => { alert('队长名字不能为空') }}>确认创建</div>
+                                        : phoneValue == ''
+                                            ? <div className='failSubmit' onClick={() => { alert('手机号码不能为空') }}>确认创建</div>
+                                            : phoneValue.length != 11
+                                                ? <div className='failSubmit' onClick={() => { alert('手机号码格式错误') }}>确认创建</div>
+                                                : idNumberValue == ''
+                                                    ? <div className='failSubmit' onClick={() => { alert('身份证不能为空') }}>确认创建</div>
+                                                    : !idCard.test(idNumberValue)
+                                                        ? <div className='failSubmit' onClick={() => { alert('身份证格式错误') }}>确认创建</div>
+                                                        : <button className='failSubmit' onClick={handleCreateTeam} type="submit" value=''>确认创建</button>}
                     </div>
                 </div>}
-
             </div>
         </div>
     )

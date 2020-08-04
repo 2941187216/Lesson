@@ -15,13 +15,12 @@ function App() {
   return (
     <div className="App">
       <HashRouter >
-        {/* <Route path = '/' component={PersonalCenter} /> */}
         <Route path=" " component={FindPwd} />
         <Route exact path="/" component={Home}/>
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register} />
         <Route path='/presonalCenter/:id' component={PersonalCenter} />
-        {/* <Route path='/' exact component={HomePage} /> */}
+        <Route path='/home/:id' component={Home}/>
         <Route path='/createTeam/:id' component={CreateTeam} />
       </HashRouter>
     </div>

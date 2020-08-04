@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import axios from 'axios'
 import qs from 'qs'
 import './Register.css'
@@ -7,62 +7,43 @@ import lock_icon from './img/lock_icon_copy.png'
 import key from './img/key.png';
 import bg from './img/bg.jpg';
 import { Link } from 'react-router-dom'
+import { axiosInstance } from "../../api/config"
+import Loading from '../common/Loading/Loading'
 export default function Register() {
     const [registername, setregistername] = useState('');
     const [resgisterpwd, setresgisterpwd] = useState('');
     const [repwd, setrepwd] = useState('');
     const [valicode, setvalicode] = useState('');
     const changeRegisterName = e => {
-        console.log(e.target.value)
         setregistername(e.target.value)
     }
     const changeRegisterPwd = e => {
-        console.log(e.target.value)
         setresgisterpwd(e.target.value)
     }
     const changeRePwd = e => {
-        console.log(e.target.value)
         setrepwd(e.target.value);
     }
     const changeValicode = e => {
-        console.log(e.target.value)
         setvalicode(e.target.value)
     }
-    const [img , setImg] = useState('1')
+    const [img, setImg] = useState('1')
 
     const handleResgister = () => {
-        // const data = {
-        //     'email': registername,
-        //     'password': resgisterpwd,
-        //     'confirmpwd': repwd,
-        //     'verificationcode': valicode
-        // }
+        
         const options = {
             url: 'http://192.168.43.66/user/register',
             method: 'POST',
-            // headers: { 'content-type': 'application/x-www-form-urlencoded' },
-            // data: qs.stringify(data)
             data: {
                 'email': registername,
                 'password': resgisterpwd,
                 'confirmpwd': repwd,
                 'verificationcode': valicode
             },
-            // transformRequest: function (obj) {
-
-            //     var str = [];
-            //     for (var p in obj) {
-            //         str.push(encodeURIComponent(p) + "="
-            //             + encodeURIComponent(obj[p]));
-            //     }
-            //     return str;
-            // }
         }
-        axios({
-            url: 'http://192.168.43.66/user/register',
+        axiosInstance({
+            url: '/user/register',
             method: 'POST',
-            // headers: { 'content-type': 'application/x-www-form-urlencoded' },
-            // data: qs.stringify(data)
+
             data: {
                 'email': registername,
                 'password': resgisterpwd,
@@ -71,10 +52,10 @@ export default function Register() {
             }
         })
             .then(function (response) {
-                console.log(response)
-                if(response.data.code === 602) {
+                if (response.data.code === 602) {
                     alert(response.data.msg);
-                }else{
+                    window.location.href = '#/login'
+                } else {
                     alert(response.data.msg);
                 }
             })
@@ -82,6 +63,24 @@ export default function Register() {
                 console.log(error);
             })
     }
+    
+    // 回车
+    const onkeydown = (e) => {
+        if(e.keyCode == 13) {
+            handleResgister();
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', onkeydown);
+    }, [])
+
+    const [isregister,setisregister] = useState(true)
+    const changeregister = ()=>{
+        setisregister(false)
+    }
+
+    let email = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
     return (
         <div>
             <div className="bg">
@@ -91,7 +90,7 @@ export default function Register() {
                 第三届江西省高校网络安全技能大赛
             </div>
             <div className="register">
-                <div className="register_title">
+                {isregister?<><div className="register_title">
                     <span>用户注册</span>
                 </div>
                 <div className="register-fields">
@@ -125,30 +124,16 @@ export default function Register() {
                         />
                     </div>
 
-                    <div className="register-fields_password">
-                        <div className="icon">
-                            <img src={key} />
-                        </div>
-                        <input type="text" name="valicode" id="valicode" placeholder="验证码" autocomplete="off" maxlength="4"
-                            value={valicode}
-                            onChange={e => changeValicode(e)}
-                        />
-                        <div onClick={()=>{setImg(new Date())}} className="validation">
-                            {/* <a onClick={(e)=>{e.preventDefault()}} href=''> */}
-                                <img src={`http://192.168.43.66/user/createValicode?time=${img}`} alt="图片加载失败" title="点击刷新" />
-                            {/* </a > */}
-                        </div>
-                    </div>
+
                     <div className="register-fields_submit">
-                        <input type="submit" value="注册" onClick={handleResgister} />
+                        {registername ==  '' ? <input type="submit" value="注册" onClick={() => { alert('注册邮箱不能为空') }} />
+                            :!email.test(registername) ? <input type="submit" value="注册" onClick={() => { alert('请输入正确的邮箱') }} />
+                            :resgisterpwd == '' ? <input type="submit" value="注册" onClick={() => { alert('密码不能为空') }} />
+                                :  resgisterpwd != repwd ? <input type="submit" value="注册" onClick={() => { alert('两次输入的密码不一样') }} />
+                                    : <input type="submit" value="注册" onClick={()=>{handleResgister();changeregister()}} />}
                     </div>
                 </div>
                 <div className="register-disclaimer">
-                    {/* <a href="#">忘记密码？</a>||
-                    <a href="../index/index.html">返回</a> */}
-                    <Link to="/findpwd" className="findpwd">
-                        <span>忘记密码？</span>
-                    </Link>
                     <Link to="/login" className="gotologin">
                         <span>登录 |</span>
                     </Link>
@@ -156,7 +141,7 @@ export default function Register() {
                     <Link to="/" className="goback">
                         <span>&nbsp;返回</span>
                     </Link>
-                </div>
+                </div></>:<Loading />}
             </div>
         </div>
     )

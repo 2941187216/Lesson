@@ -16,44 +16,86 @@ import { Link } from 'react-router-dom'
 import { BackTop, Anchor } from 'antd';
 import './Home.css'
 // const { Link } = Anchor;
-export default function Home() {
-    
-    
-
+export default function Home(props) {
+    const { id } = props.match.params
+    const [topNav, setTopNav] = useState([
+        {
+            type: 'introduction',
+            name: '比赛介绍'
+        }, {
+            type: 'object',
+            name: '参赛对象'
+        }, {
+            type: 'introduction',
+            name: '比赛介绍'
+        }, {
+            type: 'introduction',
+            name: '比赛介绍'
+        }, {
+            type: 'introduction',
+            name: '比赛介绍'
+        }, {
+            type: 'introduction',
+            name: '比赛介绍'
+        }, {
+            type: 'introduction',
+            name: '比赛介绍'
+        },
+    ])
+    const scrollToAnchor = (anchorName) => {
+        if (anchorName) {
+            // 找到锚点
+            let anchorElement = document.getElementById(anchorName);
+            // 如果对应id的锚点存在，就跳转到锚点
+            if (anchorElement) {
+                anchorElement.scrollIntoView(
+                    {
+                        block: 'start',
+                        behavior: 'smooth'
+                    }
+                )
+            }
+        }
+    }
+    let name;
     return (
         <div className="home-wraper">
             <div className="header">
-
                 <div className="top" id="atop">
                     <div className="logo">
                         <img src={logo} alt="" />
                     </div>
                     <ul className="top-nav" id='topNav' >
-                        <li>比赛介绍</li>
-                        <li>参赛对象</li>
-                        <li>比赛方式</li>
-                        <li>比赛安排</li>
-                        <li>奖项设置</li>
-                        <li>赛事组织</li>
-                        <li>联系方式</li>
-                        <li className="new"></li>
+                        <li><a className="anchor" onClick={() => scrollToAnchor('introduction')}>比赛介绍</a> </li>
+                        <li><a className="anchor" onClick={() => scrollToAnchor('object')}>参赛对象</a>  </li>
+                        <li><a className="anchor" onClick={() => scrollToAnchor('method')}>比赛方式</a>  </li>
+                        <li><a className="anchor" onClick={() => scrollToAnchor('ranger')}>比赛安排</a>  </li>
+                        <li><a className="anchor" onClick={() => scrollToAnchor('reward')}>奖项设置</a>  </li>
+                        <li><a className="anchor" onClick={() => scrollToAnchor('organization')}>赛事组织</a>  </li>
+                        <li><a className="anchor" onClick={() => scrollToAnchor('phone')}>联系方式</a>  </li>
                     </ul>
                     <ul className="navTools">
-                        <li>&nbsp;&nbsp;&nbsp;&nbsp;
+                        {id ?
+                            <li>
+                                  <Link to={`/presonalCenter/${id}`} > 个人中心</Link>
+                                <Link to='/' ><span onClick={() => {
+                                    window.history.pushState(null, null, document.URL);
+                                    window.addEventListener('popstate', function () {
+                                        window.history.pushState(null, null, document.URL);
+                                    });
+                                }} >退出</span> </Link>
+                            </li>
+                            : <li>&nbsp;&nbsp;&nbsp;&nbsp;
                             < Link to="/login" className="hreftologin">
-                                <span id="hiddenLogin" >登录</span>
-                            </Link>
-                            < Link to="/register" className="hreftoregister">
-                                <span id="hiddenLogin" >注册</span>
-                            </Link>
-                        </li>
+                                    <span id="hiddenLogin" >登录</span>
+                                </Link>
+                                < Link to="/register" className="hreftoregister">
+                                    <span id="hiddenLogin" >注册</span>
+                                </Link>
+                            </li>}
                     </ul>
                 </div>
             </div>
-
-
-
-
             <div className="container-wraper">
                 <div className="home-title">
                     第三届江西省高校网络安全技能大赛
@@ -93,22 +135,19 @@ export default function Home() {
                     </div>
                 </div>
 
-               
+
                 <div className="foot">
                     <div className="ft-org">
                         <p>东华理工大学  |  深信服公司  |  易霖博公司</p>
                     </div>
                     <div className="ft-copyright">
-                        <p>Copyright©2020</p>
+                        <p>版权所有@2020 江西教育网络安全应急中心、东华理工大学 &nbsp;&nbsp;&nbsp;&nbsp;网站运维：东华理工大学网络与信息中心</p>
                     </div>
-
                 </div>
             </div>
-
             <BackTop>
-                    <div className="gototop">UP</div>
-                </BackTop>
-
+                <div className="gototop">置顶</div>
+            </BackTop>
         </div>
     )
 }

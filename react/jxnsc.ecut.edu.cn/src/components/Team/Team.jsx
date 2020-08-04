@@ -9,13 +9,11 @@ export default function Team(props) {
     const [teamInfo, setTeamInfo] = useState('')
     const { id } = props
     const [teacherId, setTeacherId] = useState('')
-    console.log(id)
     // const [teamId ,setTeamId] = useState('')
     var teamId
     if (teamInfo != '' && teamInfo.teams.length != 0) {
         // setTeamId(teamInfo.teams[0].id)
         teamId = teamInfo.teams[0].id
-        // console.log(teamId)
     }
     // }else{
 
@@ -64,27 +62,18 @@ export default function Team(props) {
                         let ars = new Array(res.data.data.teams[0].teammembers.length)
                         res.data.data.teams[0].teammembers.forEach((teammember) => {
                             arrr.push(arra.filter((a) => a.number == teammember.number))
-                            // ars
                         })
                         for (let i = 0; i < res.data.data.teams[0].teammembers.length; i++) {
                             ars[i] = arrr[i][0]
                         }
-
-                        console.log('555555555555555555555555', ars)
-                        console.log(ars, res.data.data.teams)
-                        // let v = 0 ,g =1,k =2 ,d = 3 , h = 4
                         for (let i = 0; i < ars.length; i++) {
-                            // for(let j = 0 ; j < ars.length,j++)
                             ars[i].info[0].value = res.data.data.teams[0].teammembers[i].unit
                             ars[i].info[1].value = res.data.data.teams[0].teammembers[i].username
                             ars[i].info[2].value = res.data.data.teams[0].teammembers[i].email
                             ars[i].info[3].value = res.data.data.teams[0].teammembers[i].telphone
                             ars[i].info[4].value = res.data.data.teams[0].teammembers[i].identitycard
                         }
-                        //    let aus = new Array(4)
-                        //    for(let i = 0 ; i <4 ;i++){
-                        //        aus[i]= 
-                        //    }
+
                         setArray(ars)
                     }
 
@@ -92,14 +81,13 @@ export default function Team(props) {
             })
     }, [])
     const [teacherInfo, setTeacherInfo] = useState('')
-    // const [schoolNameList , setschoolNameList] = useState([])
+
     useEffect(() => {
         axiosInstance.post('/dictionary/getAllUniversityName')
             .then(res => {
                 setSchoolName(res.data.data)
             })
     }, [])
-    console.log('--------------------------------------', teamInfo)
     const changeInfoTrue = () => {
         setChangeInfo(true)
     }
@@ -131,7 +119,6 @@ export default function Team(props) {
     const [schoolRadio, setSchoolRadio] = useState('本科')
     const changeSchoolRadio = (e) => {
         setSchoolRadio(e.target.value);
-        console.log(schoolRadio)
     }
     const [memberList, setMemberList] = useState([
         {
@@ -281,7 +268,6 @@ export default function Team(props) {
             }
         })
             .then(function (response) {
-                console.log('+++++++++++', response)
                 if (response.data.code === 602) {
                     alert(response.data.msg)
                     window.location.href = `/#/presonalCenter/${id}`
@@ -292,7 +278,6 @@ export default function Team(props) {
             })
     }
     const handelChange = event => {
-        console.log(event.target.id)
         let e = event.target;
         const List = [...memberList];
         List.map((items, index) => {
@@ -308,25 +293,16 @@ export default function Team(props) {
         arrt.map((a) => { a.info.map((b) => { arru.push(b) }) })
         let arrl = arru.filter((a) => a.value == '')
         setmemberyes(arrl.length)
-        console.log(arrl, '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
-        // setArray(arr6)
+
     };
     const [memberyes, setmemberyes] = useState(0)
-    // useEffect(() => {
-    //     let arr6 = [...array]
-    //     let arr8 = []
-    //     arr6.map((a) => { a.info.map((b) => { arr8.push(b) }) })
-    //     let arr9 = arr8.filter((a) => a.value == '')
-    //     setmemberyes(arr9.length)
-    // }, [])
-    console.log('0000000000000000000000', memberyes)
+
     const [array, setArray] = useState([])
     const memberAdd = () => {
-        // a += 1
+
         let arr6 = [...array]
         let n = memberN
         n = 1
-        // console.log(n)
         let arr = [...memberNumber]
         arr.push(n)
         setMemberN(n)
@@ -338,9 +314,8 @@ export default function Team(props) {
                 b.push(arr6[i].number)
             }
             for (let i = 0; i < arr5.length; i++) {
-                if (b.includes(arr5[i].number)) { console.log(111333); continue }
+                if (b.includes(arr5[i].number)) { continue }
                 else {
-                    console.log(111)
                     arr6.push(arr5[i])
                     break
                 }
@@ -348,9 +323,8 @@ export default function Team(props) {
         } else {
             arr6.push(arr5[0])
         }
-        // arr6 = arr5.slice(0, arr.length)
+
         setArray(arr6)
-        console.log(memberNumber.length, arr6, array)
         let arrg = arr6
         let arrf = []
         arrg.map((a) => { a.info.map((b) => { arrf.push(b) }) })
@@ -361,23 +335,16 @@ export default function Team(props) {
     const [memberN, setMemberN] = useState(1)
     const [memberNumber, setMemberNumber] = useState([])
     const memberDel = (b) => {
-        // let arr = [...memberNumber]
-        // let c = arr.indexOf(b)
-        // arr.splice(c, 1)
-        // setMemberNumber(arr)
-        // console.log('33333333333330', b)
+
         let Lists = memberList
         let list = Lists.filter(a => a.number == b)
-        // console.log('88888888888888888',list)
         list[0].info.map((c) => {
             c.value = ''
         })
-        // setmemberNo(b)
+
         setMemberList(Lists)
-        console.log(memberList, '444444444444444444')
         let arr6 = [...array]
-        // let c = arr6.indexOf(list)
-        // console.log(c)
+
         let c
         for (let i = 0; i < arr6.length; i++) {
             if (arr6[i].number == list[0].number) {
@@ -386,16 +353,14 @@ export default function Team(props) {
             }
         }
         arr6.splice(c, 1)
-        // console.log('+++++++++++++++++++++++++++++++++', arr6, list)
         setArray(arr6)
         let arrg = arr6
-        // console.log(array)
         let arrf = []
         arrg.map((a) => { a.info.map((b) => { arrf.push(b) }) })
         let arrh = arrf.filter((a) => a.value == '')
         setmemberyes(arrh.length)
+        message.success('删除成功');
     }
-    console.log(array)
     const [content, setContent] = useState([
         {
             key: 'schoolName',
@@ -422,6 +387,13 @@ export default function Team(props) {
             type: '队长身份证号码',
             content: '152462666',
         }])
+        const [date , setDate] = useState('')
+        useEffect(()=>{
+            let a = JSON.stringify(new Date())
+            let b  = a.split('-')
+            let c = b[2].split('T')
+            setDate(parseInt(c[0]))
+        },[])
     const [schoolNameValue, setSchoolNameValue] = useState('')
     const changeSchoolNameValue = (e) => {
         setSchoolNameValue(e.target.value)
@@ -470,13 +442,12 @@ export default function Team(props) {
             }
         })
             .then(function (response) {
-                console.log(response)
                 if (response.data.code == 200) {
-                    console.log(response)
                     alert(response.data.msg)
                     window.location.reload()
                 } else {
                     alert(response.data.msg)
+                    setProfessionalNameValue('')
                 }
 
             })
@@ -484,8 +455,6 @@ export default function Team(props) {
                 console.log(error)
             })
     }
-    console.log('eeeeeeeeeeeeeeeeeeeeeee', professionaNamelValue)
-    console.log('333333333333333333333333', array, memberyes)
     let idCard = /^(\d{18}|\d{17}\w{1})$/
     let scarr = []
     if (schoolName.length > 0) {
@@ -493,13 +462,9 @@ export default function Team(props) {
         schoolName.forEach((a) => {
             scarr.push(a.name)
         })
-        // setschoolNameList(scarr)
+
     }
-    // let arr6 = [...array]
-    //     let arr8 = []
-    //     arr6.map((a) => { a.info.map((b) => { arr8.push(b) }) })
-    //     let arr9 = arr8.filter((a) => a.value == '')
-    //     setmemberyes(arr9.length)
+
     return (
         <>
             {!changeInfo ?
@@ -507,7 +472,7 @@ export default function Team(props) {
                     <div className='person-content'>
                         <div className="person-content_top person-content_text">
                             <div className="person-content_title"><h2>{'>> 团队基本信息'}</h2></div>
-                            <div className="person-content_edit" onClick={changeInfoTrue}>{teamInfo == '' ? null : teamInfo.teams.length == 0 ? null : changeInfo ? null : teamInfo.teams[0].isPass == 1 ? null : '编辑'}</div>
+                           {date!=''&&date>15?null :teamInfo == '' ? null : teamInfo.teams.length == 0 ? null : changeInfo ? null :   <div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
                         </div>
 
 
@@ -575,7 +540,7 @@ export default function Team(props) {
                     <div className='person-content'>
                         <div className="person-content_top person-content_text">
                             <div className="person-content_title"><h2>{'>> 指导老师信息'}</h2></div>
-                            <div className="person-content_edit" onClick={changeInfoTrue}>{teamInfo == '' ? null : teamInfo.teams.length == 0 ? null : changeInfo ? null : teamInfo.teams[0].isPass == 1 ? null : '编辑'}</div>
+                            {date!=''&&date>15?null :teamInfo == '' ? null : teamInfo.teams.length == 0 ? null : changeInfo ? null :  <div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
                         </div>
 
 
@@ -624,10 +589,10 @@ export default function Team(props) {
                     </div>
                     <div className='person-content person-content_member'>
                         <div className="person-content_top  person-content_text">
-                            <div className="person-content_title"><h2>{'>> 成员信息'}</h2></div>
-                            <div className="person-content_edit" onClick={changeInfoTrue}>{teamInfo == '' ? null : teamInfo.teams.length == 0 ? null : changeInfo ? null : teamInfo.teams[0].isPass == 1 ? null : '编辑'}</div>
+                            <div className="person-content_title"><h2>{'>> 队员信息'}</h2></div>
+                            {date!=''&&date>15?null :teamInfo == '' ? null : teamInfo.teams.length == 0 ? null : changeInfo ? null :  <div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
                         </div>
-                        {teamInfo == '' ? <Loading /> : teamInfo.teams.length == 0 ? <h2 className='person-content_null'></h2> : teamInfo.teams[0].teammembers.length == 0 ? <h2 className='person-content_null'>暂无成员信息，请添加</h2> : <><div className={`person-content_key person-content_member person-content_text  person-content_school`} >
+                        {teamInfo == '' ? <Loading /> : teamInfo.teams.length == 0 ? <h2 className='person-content_null'></h2> : teamInfo.teams[0].teammembers.length == 0 ? <h2 className='person-content_null'>暂无队员信息，请添加</h2> : <><div className={`person-content_key person-content_member person-content_text  person-content_school`} >
                             <Row>
                                 <Col span={2}>序号</Col>
                                 <Col span={5}>单位</Col>
@@ -637,47 +602,11 @@ export default function Team(props) {
                                 <Col span={6}>身份证号</Col>
                             </Row>
                         </div>
-                            {/* <div className={`person-content_key person-content_text  person-content_school`} >
-                                <Row>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                </Row>
-                            </div>
-                            <div className={`person-content_key person-content_text  person-content_school`} >
-                                <Row>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                </Row>
-                            </div>
-                            <div className={`person-content_key person-content_text  person-content_school`} >
-                                <Row>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                </Row>
-                            </div>
-                            <div className={`person-content_key person-content_text  person-content_school`} >
-                                <Row>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                    <Col span={4}></Col>
-                                </Row>
-                            </div> */}
+                          
                             {
                                 teamInfo.teams[0].teammembers.map((teammember, i) => {
                                     return (
-                                        <div className={`person-content_key person-content_text  person-content_school`} >
+                                        <div key={i} className={`person-content_key person-content_text  person-content_school`} >
                                             <Row>
                                                 <Col span={2}>{i + 1}</Col>
                                                 <Col span={5}>{teammember.unit}</Col>
@@ -696,8 +625,6 @@ export default function Team(props) {
                 </>
                 :
                 <>
-
-
                     <div className='createTeam-content'>
                         <div className="createTeam-content_top createTeam-content_text">
                             <div className="createTeam-content_title"><h2>{'>> 团队基本信息'}</h2></div>
@@ -737,10 +664,6 @@ export default function Team(props) {
                                     </div>
                                 )
                             })}</>}
-
-
-
-
                     </div>
 
                     <div className='person-content'>
@@ -775,9 +698,9 @@ export default function Team(props) {
                             </div>
 
                         </div> <div className="person-content_top person-content_text">
-                            {array.length == 4 ? <div className="person-content_title" onClick={() => { alert('达到最大成员数量') }}><div className="person-content_memberTitle"><div>添加成员</div></div></div>
-                                : memberyes > 0 ? <div className="person-content_title" onClick={() => { alert('请填完当前成员信息') }}><div className="person-content_memberTitle"><div>添加成员</div></div></div>
-                                    : <div className="person-content_title" onClick={memberAdd}><div className="person-content_memberTitle"><div>添加成员</div></div></div>}
+                            {array.length == 4 ? <div className="person-content_title" onClick={() => { alert('达到最大队员数量') }}><div className="person-content_memberTitle"><div>添加队员</div></div></div>
+                                : memberyes > 0 ? <div className="person-content_title" onClick={() => { alert('请填完当前队员信息') }}><div className="person-content_memberTitle"><div>添加队员</div></div></div>
+                                    : <div className="person-content_title" onClick={memberAdd}><div className="person-content_memberTitle"><div>添加队员</div></div></div>}
                         </div>
                         <div className='person-content_memberKey'  >
                             {
@@ -796,15 +719,15 @@ export default function Team(props) {
                                                     )
                                                 })
                                             }
-                                            {/* <div className="member-info memberDel" onClick={() => { memberDel(a.number) }}> <div className='member-del_botton'>删除成员</div> </div> */}
+                                          
                                             <Popconfirm
                                                 title="是否删除"
                                                 onConfirm={()=>{memberDel(a.number)}}
-                                                onCancel={cancel}
+                                                
                                                 okText="Yes"
                                                 cancelText="No"
                                             >
-                                                删除
+                                             <div className="member-info memberDel" ><div className='member-del_botton'>删除队员</div></div>  
                                             </Popconfirm>
 
                                         </div>
@@ -851,39 +774,13 @@ export default function Team(props) {
                                                                                                     : <button className='person-content_subBotton' onClick={handleCreateTeam} value=''>保存</button>}
                                 <button className='person-content_resBotton' type="reset" onClick={() => { changeInfoFalse() }}>取消</button>
                             </div>
-                            {/* <button className='person-content_subBotton' onClick={handeleChangeMember} value=''>保存</button>
-                            <button className='person-content_resBotton' type="reset" onClick={() => { }}>取消</button> */}
+                        
                         </div>
                     </div>
                     <div className='person-content'>
 
                     </div>
-                    {/* <div className="person-content_button">
-                    {professionaNamelValue == ''
-                        ? <div className='failSubmit' onClick={() => { alert('非法的专业名称') }}>保存</div>
-                        : schoolNameValue == '' || !schoolName.includes(schoolNameValue)
-                            ? <div className='failSubmit' onClick={() => { alert('非法的学校名称') }}>保存</div>
-                            : nameValue == ''
-                                ? <div className='failSubmit' onClick={() => { alert('非法的名字') }}>保存</div>
-                                : phoneValue == '' || phoneValue.length != 11
-                                    ? <div className='failSubmit' onClick={() => { alert('非法的手机号码') }}>保存</div>
-                                    : idNumberValue == '' || idNumberValue.length != 18
-                                        ? <div className='failSubmit' onClick={() => { alert('非法的身份证') }}>保存</div>
-                                        : teacherNameValue == ''
-                                            ? <div className='failSubmit' onClick={() => { alert('非法的老师名字') }}>保存</div>
-                                            : teacherSchoolValue == ''
-                                                ? <div className='failSubmit' onClick={() => { alert('非法的老师单位') }}>保存</div>
-                                                : teacherPhoneValue.length != 11
-                                                    ? <div className='failSubmit' onClick={() => { alert('非法的老师手机号码') }}>保存</div>
-                                                    : teacherIdValue.length != 18
-                                                        ? <div className='failSubmit' onClick={() => { alert('非法的老师身份证') }}>保存</div>
-                                                        : !email.test(teacherMailboxlValue)
-                                                            ? <div className='failSubmit' onClick={() => { alert('非法的邮箱') }}>保存</div>
-                                                            : memberyes > 0
-                                                                ? <div className='failSubmit' onClick={() => { alert('非法的队员') }}>保存</div>
-                                                                : <button className='person-content_subBotton' onClick={handleCreateTeam} value=''>保存</button>}
-                    <button className='person-content_resBotton' type="reset" onClick={() => { changeInfoFalse()}}>取消</button>
-                </div> */}
+                   
                 </>
             }
         </>
@@ -893,60 +790,6 @@ export default function Team(props) {
 
 
 
-        // <div className='person-content'>
-        //                     <div className="person-content_top person-content_text">
-        //                         <div className="person-content_title"><h2>{'>> 团队信息'}</h2></div>
-        //                         <div className="person-content_edit" onClick={changeInfoTrue}>{changeInfo ? null : '编辑'}</div>
-        //                     </div>
-        //                     {<><div className={`person-content_key person-content_text  person-content_school`} >
-        //                         <Row>
-        //                             <Col span={6}></Col>
-        //                             <Col span={6}>学校名称</Col>
-        //                             <Col span={6}>{111}</Col>
-        //                             <Col span={6}></Col>
-        //                         </Row>
-        //                     </div>
-        //                         <div className={`person-content_key person-content_text  person-content_school`} >
-        //                             <Row>
-        //                                 <Col span={6}></Col>
-        //                                 <Col span={6}>专业名称:</Col>
-        //                                 <Col span={6}>{111}</Col>
-        //                                 <Col span={6}></Col>
-        //                             </Row>
-        //                         </div>
-        //                         <div className={`person-content_key person-content_text  person-content_school`} >
-        //                             <Row>
-        //                                 <Col span={6}></Col>
-        //                                 <Col span={6}>队长姓名:</Col>
-        //                                 <Col span={6}>{111}</Col>
-        //                                 <Col span={6}></Col>
-        //                             </Row>
-        //                         </div>
-        //                         <div className={`person-content_key person-content_text  person-content_school`} >
-        //                             <Row>
-        //                                 <Col span={6}></Col>
-        //                                 <Col span={6}>队长手机号:</Col>
-        //                                 <Col span={6}>{111}</Col>
-        //                                 <Col span={6}></Col>
-        //                             </Row>
-        //                         </div>
-        //                         <div className={`person-content_key person-content_text  person-content_school`} >
-        //                             <Row>
-        //                                 <Col span={6}></Col>
-        //                                 <Col span={6}>队长身份证号码:</Col>
-        //                                 <Col span={6}>{111}</Col>
-        //                                 <Col span={6}></Col>
-        //                             </Row>
-        //                         </div>
-        //                         <div className={`person-content_key person-content_text  person-content_school`} >
-        //                             <Row>
-        //                                 <Col span={6}></Col>
-        //                                 <Col span={6}>队长邮箱:</Col>
-        //                                 <Col span={6}>{111}</Col>
-        //                                 <Col span={6}></Col>
-        //                             </Row>
-        //                         </div>
-        //                     </>}
-        //                 </div>
+     
     )
 }

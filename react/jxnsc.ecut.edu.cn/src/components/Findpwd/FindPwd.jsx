@@ -67,7 +67,7 @@ export default function FindPwd() {
                         </div>
                         </div>
                         {!email.test(findMailbox)
-                            ? <div className='failSubmit findPwd-text stepContent_button' onClick={() => { alert('非法的邮箱') }}>下一步</div>
+                            ? <div className='failSubmit findPwd-text stepContent_button' onClick={() => { alert('邮箱不能为空') }}>下一步</div>
                             : findVerification == '' ? <div onClick={() => { alert('请填写验证码') }} className='failSubmit findPwd-text stepContent_button'>
                                 <div>下一步</div>
                             </div> : <div onClick={() => { changeStepDisplay(1) }} className='failSubmit findPwd-text stepContent_button'>

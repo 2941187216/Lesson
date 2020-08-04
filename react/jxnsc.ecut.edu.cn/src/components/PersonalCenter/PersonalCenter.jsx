@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import 'antd/dist/antd.css'
-import { Row, Col } from 'antd';
+import { Row, Col, Popconfirm, message } from 'antd';
 import './index.css'
 import { useState } from 'react';
 import PersonalTop from './PersonalTop/PersonalTop';
@@ -9,26 +9,41 @@ import bgi from '../../assets/img3/bg.png'
 import Top from '../common/Top/Top';
 import axios from 'axios'
 import Loading from '../common/Loading/Loading';
+import { axiosInstance } from '../../api/config'
+import Team from '../Team/Team';
+import Sign from './Sign/Sign';
 export default function PersonalCenter(props) {
-    console.log(props)
     const [user, setUser] = useState('')
     const [team, setTeam] = useState('')
     const { id } = props.match.params
-    // console.log('22222222222220', arr6)
     useEffect(() => {
-        axios.get(`http://192.168.43.66/user/queryMemberInfo?id=${id}`)
+        axiosInstance.get(`/user/queryMemberInfo?id=${id}`)
             .then(res => {
-                console.log(res)
                 setUser(res.data.data)
+                setIdNumberValue(res.data.data.identitycard)
+                setProfessionalNameValue(res.data.data.major)
+                setSchoolNameValue(res.data.data.university)
+                setNameValue(res.data.data.realname)
+                setPhoneValue(res.data.data.tephone)
             })
+        axiosInstance.post('/dictionary/getAllUniversityName')
+            .then(res => {
+
+            }
+
+            )
     }, [])
+
+    // user.university major realname tephone identitycard 
     useEffect(() => {
-        axios.get(`http://192.168.43.66/user/queryMemberInfo?id=${id}`)
+        axiosInstance.get(`/user/queryMemberInfo?id=${id}`)
             .then(res => {
                 setTeam(res.data.data)
+                if (res.data.data.teams != null) {
+                    setteamLength(res.data.data.teams.length)
+                }
             })
     }, [])
-    console.log('======', user, team)
     const [memberyes, setmemberyes] = useState(0)
     const [memberN, setMemberN] = useState(1)
     const [memberNO, setmemberNo] = useState(-1)
@@ -40,26 +55,31 @@ export default function PersonalCenter(props) {
                 type: 'text',
                 value: '',
                 name: '单位',
+                key: 'unit',
                 id: 'memberSchool0'
             }, {
                 type: 'text',
                 value: '',
                 name: '姓名',
+                key: 'username',
                 id: 'memberName0'
             }, {
                 type: 'text',
                 value: '',
                 name: '邮箱',
+                key: 'email',
                 id: 'memberMailbox0'
             }, {
                 type: 'number',
                 value: '',
                 name: '手机',
+                key: 'telphone',
                 id: 'memberPhone0'
             }, {
-                type: 'number',
+                type: 'text',
                 value: '',
                 name: '身份证',
+                key: 'identitycard',
                 id: 'memberId0'
             },]
         }, {
@@ -68,26 +88,31 @@ export default function PersonalCenter(props) {
                 type: 'text',
                 value: '',
                 name: '单位',
+                key: 'unit',
                 id: 'memberSchool1'
             }, {
                 type: 'text',
                 value: '',
                 name: '姓名',
+                key: 'username',
                 id: 'memberName1'
             }, {
                 type: 'text',
                 value: '',
                 name: '邮箱',
+                key: 'email',
                 id: 'memberMailbox1'
             }, {
                 type: 'number',
                 value: '',
                 name: '手机',
+                key: 'telphone',
                 id: 'memberPhone1'
             }, {
-                type: 'number',
+                type: 'text',
                 value: '',
                 name: '身份证',
+                key: 'identitycard',
                 id: 'memberId1'
             }],
         }, {
@@ -96,26 +121,31 @@ export default function PersonalCenter(props) {
                 type: 'text',
                 value: '',
                 name: '单位',
+                key: 'unit',
                 id: 'memberSchool2'
             }, {
                 type: 'text',
                 value: '',
                 name: '姓名',
+                key: 'username',
                 id: 'memberName2'
             }, {
                 type: 'text',
                 value: '',
                 name: '邮箱',
+                key: 'email',
                 id: 'memberMailbox2'
             }, {
                 type: 'number',
                 value: '',
                 name: '手机',
+                key: 'telphone',
                 id: 'memberPhone2'
             }, {
-                type: 'number',
+                type: 'text',
                 value: '',
                 name: '身份证',
+                key: 'identitycard',
                 id: 'memberId2'
             }],
         }, {
@@ -124,26 +154,31 @@ export default function PersonalCenter(props) {
                 type: 'text',
                 value: '',
                 name: '单位',
+                key: 'unit',
                 id: 'memberSchool3'
             }, {
                 type: 'text',
                 value: '',
                 name: '姓名',
+                key: 'username',
                 id: 'memberName3'
             }, {
                 type: 'text',
                 value: '',
                 name: '邮箱',
+                key: 'email',
                 id: 'memberMailbox3'
             }, {
                 type: 'number',
                 value: '',
                 name: '手机',
+                key: 'telphone',
                 id: 'memberPhone3'
             }, {
-                type: 'number',
+                type: 'text',
                 value: '',
                 name: '身份证',
+                key: 'identitycard',
                 id: 'memberId3'
             }]
         }])
@@ -177,51 +212,14 @@ export default function PersonalCenter(props) {
             type: '队长邮箱',
             content: '@152462666',
         }])
-    const [schoolName, setSchoolName] = useState([
-        '江西水利职业学院'
-        , '南昌工学院'
-        , '江西应用技术职业学院'
-        , '江西航空职业技术学院'
-        , '南昌理工学院'
-        , '吉安职业技术学院'
-        , '江西农业大学信息中心'
-        , '井冈山大学'
-        , '江西农业工程职业学院'
-        , '赣南医学院'
-        , '新余学院'
-        , '共青科技职业学院'
-        , '宜春幼儿师范高等专科学校'
-        , '华东交通大学'
-        , '南昌师范学院'
-        , '江西生物科技职业学院'
-        , '江西医学高等专科学校'
-        , '江西机电职业技术学院'
-        , '江西师范高等专科学校'
-        , '上饶职业技术学院'
-        , '赣州师范高等专科学校'
-        , '江西应用工程职业学院'
-        , '江西旅游商贸职业学院'
-        , '抚州职业技术学院'
-        , '上饶师范学院'
-        , '宜春职业技术学院'
-        , '南昌航空大学'
-        , '南昌职业学院'
-        , '江西泰豪动漫职业学院'
-        , '南昌工程学院'
-        , '东华理工大学'
-        , '赣西科技职业学院'
-        , '江西新能源科技职业学院'
-        , '南昌大学'
-        , '江西司法警官职业学院'
-        , '江西应用科技学院'
-        , '江西工业贸易职业技术学院'
-        , '江西师范大学'
-        , '九江职业技术学院'
-        , '景德镇陶瓷大学'
-        , '赣南卫生健康职业学院'
-        , '江西建设职业技术学院'
-        , '江西财经大学'])
-    const [presonOrSetting, setPresonOrSetting] = useState(true)
+    const [schoolName, setSchoolName] = useState([])
+    useEffect(() => {
+        axiosInstance.post('/dictionary/getAllUniversityName')
+            .then(res => {
+                setSchoolName(res.data.data)
+            })
+    }, [])
+    const [presonOrSetting, setPresonOrSetting] = useState(1)
     const [changeInfo, setChangeInfo] = useState(false)
     const [schoolNameValue, setSchoolNameValue] = useState('')
     const [nameValue, setNameValue] = useState('')
@@ -236,7 +234,7 @@ export default function PersonalCenter(props) {
         arr6.map((a) => { a.info.map((b) => { arr8.push(b) }) })
         let arr9 = arr8.filter((a) => a.value == '')
         setmemberyes(arr9.length)
-    })
+    }, [])
     const changeInfoTrue = () => {
         setChangeInfo(true)
     }
@@ -244,10 +242,13 @@ export default function PersonalCenter(props) {
         setChangeInfo(false)
     }
     const displayPreson = () => {
-        setPresonOrSetting(true)
+        setPresonOrSetting(1)
+    }
+    const displayTeam = () => {
+        setPresonOrSetting(2)
     }
     const displaySetting = () => {
-        setPresonOrSetting(false)
+        setPresonOrSetting(3)
     }
     const changePhoneValue = (e) => {
         setPhoneValue(e.target.value)
@@ -277,7 +278,6 @@ export default function PersonalCenter(props) {
         let arr6 = [...array]
         let n = memberN
         n = 1
-        // console.log(n)
         let arr = [...memberNumber]
         arr.push(n)
         setMemberN(n)
@@ -289,9 +289,8 @@ export default function PersonalCenter(props) {
                 b.push(arr6[i].number)
             }
             for (let i = 0; i < arr5.length; i++) {
-                if (b.includes(arr5[i].number)) { console.log(111333); continue }
+                if (b.includes(arr5[i].number)) {  continue }
                 else {
-                    console.log(111)
                     arr6.push(arr5[i])
                     break
                 }
@@ -301,17 +300,17 @@ export default function PersonalCenter(props) {
         }
         // arr6 = arr5.slice(0, arr.length)
         setArray(arr6)
-        console.log(memberNumber.length, arr6, array)
+
     }
     const memberDel = (b) => {
         // let arr = [...memberNumber]
         // let c = arr.indexOf(b)
         // arr.splice(c, 1)
         // setMemberNumber(arr)
-        console.log('33333333333330', b)
+
         let Lists = memberList
         let list = Lists.filter(a => a.number == b)
-        // console.log('88888888888888888',list)
+
         list[0].info.map((c) => {
             c.value = ''
         })
@@ -320,7 +319,6 @@ export default function PersonalCenter(props) {
 
         let arr6 = [...array]
         // let c = arr6.indexOf(list)
-        // console.log(c)
         let c
         for (let i = 0; i < arr6.length; i++) {
             if (arr6[i].number == list[0].number) {
@@ -329,7 +327,6 @@ export default function PersonalCenter(props) {
             }
         }
         arr6.splice(c, 1)
-        console.log('+++++++++++++++++++++++++++++++++', arr6, list)
         setArray(arr6)
     }
 
@@ -348,17 +345,16 @@ export default function PersonalCenter(props) {
     const changeTeacherSchoolValue = (e) => {
         setTeacherSchoolValue(e.target.value)
     }
-    const handeleChangeMember = () =>{
-        axios({
+    const handeleChangeMember = () => {
+        axiosInstance({
             method: 'POST',
-            url: 'http://192.168.43.66/user/createTeamMember',
+            url: '/user/createTeamMember',
             data: {
-                'member' : array,
+                'member': array,
                 "id": id
             }
         })
             .then(function (response) {
-                console.log('+++++++++++', response)
                 if (response.data.code === 602) {
                     alert(response.data.msg)
                     window.location.href = `/#/presonalCenter/${id}`
@@ -375,9 +371,7 @@ export default function PersonalCenter(props) {
     const [teacherSchoolValue, setTeacherSchoolValue] = useState('')
     let email = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
     const [array, setArray] = useState([])
-    console.log('--------------', array)
     const handelChange = event => {
-        console.log(event.target.id)
         let e = event.target;
         const List = [...memberList];
         List.map((items, index) => {
@@ -392,11 +386,16 @@ export default function PersonalCenter(props) {
         setMemberList(List)
         // setArray(arr6)
     };
-
+    // const [date , setDate] = useState('')
+    // useEffect(()=>{
+    //     let a = new Date()
+    //     setDate(a)
+    // })
+    
     const handleSaveInfo = () => {
-        axios({
+        axiosInstance({
             method: 'POST',
-            url: 'http://192.168.43.66/user/updateMemberInfo',
+            url: '/user/updateMemberInfo',
             data: {
                 "university": schoolNameValue,
                 "major": professionaNamelValue,
@@ -406,48 +405,59 @@ export default function PersonalCenter(props) {
                 "id": id
             }
         })
-
             .then(function (response) {
-                console.log('+++++++++++', response)
-                if (response.data.code === 602) {
+                if (response.data.code === 200) {
                     alert(response.data.msg)
-                    window.location.href = `/#/presonalCenter/${id}`
+                    window.location.reload()
                 }
             })
             .catch(function (error) {
                 console.log(error)
             })
+
     }
-    console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%', array)
+    
+    const [sign, setSign] = useState(false)
+    const changeSignDisplay = () => {
+        setSign(true)
+    }
+    const changeSignNo = () => {
+        setSign(false)
+    }
+    const [date , setDate] = useState('')
+        useEffect(()=>{
+            let a = JSON.stringify(new Date())
+            let b  = a.split('-')
+            let c = b[2].split('T')
+            setDate(parseInt(c[0]))
+        },[])
+    const [teamLength, setteamLength] = useState('')
+    let idCard = /^(\d{18}|\d{17}\w{1})$/
+    let scarr = []
+    if (schoolName.length > 0) {
+
+        schoolName.forEach((a) => {
+            scarr.push(a.name)
+        })
+
+    }
     return (
         <div className='personal' >
             <div className="personal-bg">
                 <img src={bgi} alt="" />
             </div>
-            <Top />
-            <PersonalTop id={id} displayPreson={displayPreson} displaySetting={displaySetting} />
-            {presonOrSetting
+            <Top person={'1'} id={id} />
+            {sign ? <Sign displayTeam={displayTeam} id={id} changeSignNo={changeSignNo} /> : null}
+            <PersonalTop team={team} teams={teamLength} id={id} displayPreson={displayPreson} displayTeam={displayTeam} displaySetting={displaySetting} setPresonOrSetting={setPresonOrSetting} />
+            {presonOrSetting == 1
                 ?//  个人中心
                 <>
                     {!changeInfo ? //  基本信息
                         <div className='person-content'>
                             <div className="person-content_top person-content_text">
                                 <div className="person-content_title"><h2>{'>> 基本信息'}</h2></div>
-                                <div className="person-content_edit" onClick={changeInfoTrue}>{changeInfo ? null : '编辑'}</div>
+                                {date!=''&&date>15?null :changeInfo  ? null:<div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
                             </div>
-
-                            {/* {content.map((title, i) => {
-                                return (
-                                    <div className={`person-content_key person-content_text  person-content_${title.key}`} key={i}>
-                                        <Row>
-                                            <Col span={6}></Col>
-                                            <Col span={6}>{`${title.type}:  `}</Col>
-                                            <Col span={6}>{title.content}</Col>
-                                            <Col span={6}></Col>
-                                        </Row>
-                                    </div>
-                                )
-                            })} */}
                             {user == '' ? <Loading /> : <><div className={`person-content_key person-content_text  person-content_school`} >
                                 <Row>
                                     <Col span={6}></Col>
@@ -456,6 +466,7 @@ export default function PersonalCenter(props) {
                                     <Col span={6}></Col>
                                 </Row>
                             </div>
+
                                 <div className={`person-content_key person-content_text  person-content_school`} >
                                     <Row>
                                         <Col span={6}></Col>
@@ -495,18 +506,18 @@ export default function PersonalCenter(props) {
                                         <Col span={6}>{user.email}</Col>
                                         <Col span={6}></Col>
                                     </Row>
-                                </div></>}
+                                </div>
+                            </>}
 
                         </div>
-                        : //编辑
+                        :
                         <>
-                            {/* <form action=""> */}
-                            <div className='person-content'>
+                            < div className='person-content'>
                                 <div className="person-content_top person-content_text">
                                     <div className="person-content_title"><h2>{'>> 基本信息'}</h2></div>
-                                    <div className="person-content_edit" onClick={changeInfoTrue}>{changeInfo ? null : '编辑'}</div>
+                                    {changeInfo ? null : <div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
                                 </div>
-                                {content.map((title, i) => {
+                                {schoolName.length == 0 ? <Loading /> :content.map((title, i) => {
                                     return (
                                         <div className={`person-content_key person-content_${title.key}`} key={i}>
                                             <Row>
@@ -516,120 +527,51 @@ export default function PersonalCenter(props) {
                                                     <div>
                                                         <input id={title.key} value={schoolNameValue} onChange={changeSchoolNameValue} name="schoolName" list="school" />
                                                         <datalist id="school">
-                                                            {schoolName.map((name, i) => {
+                                                            {schoolName.length > 0 ? schoolName.map((name, i) => {
                                                                 return (
-                                                                    <option key={i} value={name}>{name}</option>
+                                                                    <option key={i} value={name.name}>{name.name}</option>
                                                                 )
-                                                            })}
+                                                            }) : null}
                                                         </datalist>
                                                     </div>
-                                                    : title.key == 'mailbox' ? title.content : <input value={i == 1 ? professionaNamelValue : i == 2 ? nameValue : i == 3 ? phoneValue : i == 4 ? idNumberValue : null} onChange={i == 1 ? changeProfessionalNameValue : i == 2 ? changeNameValue : i == 3 ? changePhoneValue : i == 4 ? changeIdNumberValue : null} type={i == 3 || i == 4 ? 'number' : 'text'} id={title.key} name={title.key} />}</Col>
+                                                    : title.key == 'mailbox' ? user.email : <input value={i == 1 ? professionaNamelValue : i == 2 ? nameValue : i == 3 ? phoneValue : i == 4 ? idNumberValue : null} onChange={i == 1 ? changeProfessionalNameValue : i == 2 ? changeNameValue : i == 3 ? changePhoneValue : i == 4 ? changeIdNumberValue : null} type={i == 3 ? 'number' : 'text'} id={title.key} name={title.key} />}</Col>
                                             </Row>
                                         </div>
                                     )
                                 })}
-                                <button className='person-content_subBotton' onClick={() => { handleSaveInfo(); changeInfoFalse() }} value=''>保存</button>
-                                <button className='person-content_resBotton' type="reset" onClick={() => { changeInfoFalse(); changeAllInput() }}>取消</button>
+                            
+                                <div className="person-content_button">
+                                    {professionaNamelValue == '' || professionaNamelValue == null
+                                        ? <div className='failSubmit' onClick={() => { alert('专业名称不能为空') }}>保存</div>
+                                        : schoolNameValue == ''
+                                            ? <div className='failSubmit' onClick={() => { alert('学校名称不能为空') }}>保存</div>
+                                            : !scarr.includes(schoolNameValue)
+                                                ? <div className='failSubmit' onClick={() => { alert('请根据提示填写学校名称') }}>保存</div>
+                                                : nameValue == '' || nameValue == null
+                                                    ? <div className='failSubmit' onClick={() => { alert('队长名字不能为空') }}>保存</div>
+                                                    : phoneValue == '' || phoneValue == null
+                                                        ? <div className='failSubmit' onClick={() => { alert('手机号码不能为空') }}>保存</div>
+                                                        : phoneValue.length != 11
+                                                            ? <div className='failSubmit' onClick={() => { alert('手机号码格式错误') }}>保存</div>
+                                                            : idNumberValue == ''
+                                                                ? <div className='failSubmit' onClick={() => { alert('身份证不能为空') }}>保存</div>
+                                                                : !idCard.test(idNumberValue)
+                                                                    ? <div className='failSubmit' onClick={() => { alert('身份证格式错误') }}>保存</div>
+                                                                    : 
+                                                                    
+
+                                                                    <button className='person-content_subBotton' onClick={handleSaveInfo} value=''>保存</button>
+                                                                    }
+                                    <button className='person-content_resBotton' type="reset" onClick={() => { changeInfoFalse() }}>取消</button>
+                                </div>
                             </div >
-                            <div className='person-content'>
-                                <div className="person-content_top person-content_text">
-                                    <div className="person-content_title"><h2>{'>> 指导老师信息'}</h2></div>
-                                </div>
-                                <div className='createTeam-content_teacherKey'  >
 
-                                    <div className='teacher-infos'>
-                                        <div className='teacher-info'>
-                                            <div className='teacher-label'><label htmlFor={`teacherSchool`}>{`单位`}</label></div>
-                                            <div className='teacher-input'><input value={teacherSchoolValue} onChange={changeTeacherSchoolValue} type="text" id={`teacherSchool`} /></div>
-                                        </div>
-                                        <div className='teacher-info'>
-                                            <div className='teacher-label'><label htmlFor={`teacherName`}>{`姓名`}</label></div>
-                                            <div className='teacher-input'><input value={teacherNameValue} onChange={changeTeacherNameValue} type="text" id={`teacherName`} /></div>
-                                        </div>
-
-                                        <div className='teacher-info'>
-                                            <div className='teacher-label'><label htmlFor={`teacherEm`}>{`邮箱`}</label></div>
-                                            <div className='teacher-input'><input value={teacherMailboxlValue} onChange={changeTeacherMailboxlValue} type="text" id={`teacherEm`} /></div>
-                                        </div>
-                                        <div className='teacher-info'>
-                                            <div className='teacher-label'><label htmlFor={`teacherPhone`}>{`电话`}</label></div>
-                                            <div className='teacher-input'><input value={teacherPhoneValue} onChange={changeTeacherPhoneValue} type="number" id={`teacherPhone`} /></div>
-                                        </div>
-                                        <div className='teacher-info'>
-                                            <div className='teacher-label'><label htmlFor={`teacherId`}>{`身份证`}</label></div>
-                                            <div className='teacher-input'><input value={teacherIdValue} onChange={changeTeacherIdValue} type="number" id={`teacherId`} /></div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div className='person-content'>
-                                <div className="person-content_top person-content_text">
-                                    {array.length == 4 ? <div className="person-content_title" onClick={() => { alert('达到最大成员数量') }}><div className="person-content_memberTitle"><div>添加成员</div></div></div>
-                                        : memberyes > 0 ? <div className="person-content_title" onClick={() => { alert('请填完当前成员信息') }}><div className="person-content_memberTitle"><div>添加成员</div></div></div>
-                                            : <div className="person-content_title" onClick={memberAdd}><div className="person-content_memberTitle"><div>添加成员</div></div></div>}
-                                </div>
-                                <div className='person-content_memberKey'  >
-                                    {
-                                        array.length > 0 ? array.map((a, index) => {
-                                            return (
-                                                <div className='member-infos' key={index}>
-                                                    {
-                                                        a.info.map((b, i) => {
-                                                            return (
-                                                                <div className='member-info' key={i}>
-                                                                    <div className='member-label'><label htmlFor={b.id}>{b.name}</label></div>
-                                                                    <div className='member-input'><input onChange={(e) => { handelChange(e) }}
-                                                                        value={b.value}
-                                                                        type="text" id={b.id} /></div>
-                                                                </div>
-                                                            )
-                                                        })
-                                                    }
-                                                    <div className="member-info memberDel" onClick={() => { memberDel(a.number) }}> <div className='member-del_botton'>删除成员</div> </div>
-
-                                                </div>
-                                            )
-                                        })
-                                            : null}
-                                            <button className='person-content_subBotton' onClick={handeleChangeMember} value=''>保存</button>
-                                <button className='person-content_resBotton' type="reset" onClick={() => {}}>取消</button>
-                                </div>
-                            </div>
-                            {/* <div className="person-content_button">
-                                {professionaNamelValue == ''
-                                    ? <div className='failSubmit' onClick={() => { alert('非法的专业名称') }}>保存</div>
-                                    : schoolNameValue == '' || !schoolName.includes(schoolNameValue)
-                                        ? <div className='failSubmit' onClick={() => { alert('非法的学校名称') }}>保存</div>
-                                        : nameValue == ''
-                                            ? <div className='failSubmit' onClick={() => { alert('非法的名字') }}>保存</div>
-                                            : phoneValue == '' || phoneValue.length != 11
-                                                ? <div className='failSubmit' onClick={() => { alert('非法的手机号码') }}>保存</div>
-                                                : idNumberValue == '' || idNumberValue.length != 18
-                                                    ? <div className='failSubmit' onClick={() => { alert('非法的身份证') }}>保存</div>
-                                                    : teacherNameValue == ''
-                                                        ? <div className='failSubmit' onClick={() => { alert('非法的老师名字') }}>保存</div>
-                                                        : teacherSchoolValue == ''
-                                                            ? <div className='failSubmit' onClick={() => { alert('非法的老师单位') }}>保存</div>
-                                                            : teacherPhoneValue.length != 11
-                                                                ? <div className='failSubmit' onClick={() => { alert('非法的老师手机号码') }}>保存</div>
-                                                                : teacherIdValue.length != 18
-                                                                    ? <div className='failSubmit' onClick={() => { alert('非法的老师身份证') }}>保存</div>
-                                                                    : !email.test(teacherMailboxlValue)
-                                                                        ? <div className='failSubmit' onClick={() => { alert('非法的邮箱') }}>保存</div>
-                                                                        : memberyes > 0
-                                                                            ? <div className='failSubmit' onClick={() => { alert('非法的队员') }}>保存</div>
-                                                                            : <button className='person-content_subBotton' onClick={handleSaveInfo} value=''>保存</button>}
-                                <button className='person-content_resBotton' type="reset" onClick={() => { changeInfoFalse(); changeAllInput()}}>取消</button>
-                            </div> */}
-                            {/* </form> */}
+                    
                         </>
                     }
-                    {/* </div>  */}
                 </>
-                : // 设置中心
-                <div className='person-content'><PersonSetting /></div>}
-        </div>
+                : presonOrSetting == 2 ? <Team displayTeam={displayTeam} changeSignDisplay={changeSignDisplay} id={id} /> : // 设置中心
+                    <div className='person-content'><PersonSetting id={id} /></div>}
+        </div >
     )
 } 

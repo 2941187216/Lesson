@@ -63,8 +63,8 @@ img {
 .register {
     position: absolute;
     width: 290px;
-    height: 400px;
-    top: 0;
+    height: 370px;
+    top: 1.111111rem;
     bottom: 0;
     right: 0;
     left: 0;
@@ -120,7 +120,7 @@ img {
 }
 
 .register-fields {
-    height: 208px;
+    height: 170px;
     position: absolute;
     left: 0;
 }
@@ -198,6 +198,6 @@ img {
 }
 
 .register-disclaimer  {
-    margin-top: 4.5rem;
+    margin-top: 3.888889rem;
     z-index: 1000;
 }

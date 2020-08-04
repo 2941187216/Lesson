@@ -10,6 +10,9 @@
     position: absolute;
     top: 0; 
 }
+.hasTeam{
+    font-size: .333333rem;
+}
 .person-top_bgImg img{
     width: 100%;
     height: 5.555556rem;
