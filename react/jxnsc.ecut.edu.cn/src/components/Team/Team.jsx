@@ -388,11 +388,13 @@ export default function Team(props) {
             content: '152462666',
         }])
         const [date , setDate] = useState('')
+        const[month,setMonth] = useState('')
         useEffect(()=>{
             let a = JSON.stringify(new Date())
             let b  = a.split('-')
             let c = b[2].split('T')
             setDate(parseInt(c[0]))
+            setMonth(b[1])
         },[])
     const [schoolNameValue, setSchoolNameValue] = useState('')
     const changeSchoolNameValue = (e) => {
@@ -472,7 +474,7 @@ export default function Team(props) {
                     <div className='person-content'>
                         <div className="person-content_top person-content_text">
                             <div className="person-content_title"><h2>{'>> 团队基本信息'}</h2></div>
-                           {date!=''&&date>15?null :teamInfo == '' ? null : teamInfo.teams.length == 0 ? null : changeInfo ? null :   <div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
+                           {month!=''&&month>7&& date!=''&&date>15?null :teamInfo == '' ? null : teamInfo.teams.length == 0 ? null : changeInfo ? null :   <div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
                         </div>
 
 
@@ -540,7 +542,7 @@ export default function Team(props) {
                     <div className='person-content'>
                         <div className="person-content_top person-content_text">
                             <div className="person-content_title"><h2>{'>> 指导老师信息'}</h2></div>
-                            {date!=''&&date>15?null :teamInfo == '' ? null : teamInfo.teams.length == 0 ? null : changeInfo ? null :  <div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
+                            {month!=''&&month>7&& date!=''&&date>15?null :date!=''&&date>15?null :teamInfo == '' ? null : teamInfo.teams.length == 0 ? null : changeInfo ? null :  <div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
                         </div>
 
 
@@ -590,7 +592,7 @@ export default function Team(props) {
                     <div className='person-content person-content_member'>
                         <div className="person-content_top  person-content_text">
                             <div className="person-content_title"><h2>{'>> 队员信息'}</h2></div>
-                            {date!=''&&date>15?null :teamInfo == '' ? null : teamInfo.teams.length == 0 ? null : changeInfo ? null :  <div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
+                            {month!=''&&month>7&& date!=''&&date>15?null :date!=''&&date>15?null :teamInfo == '' ? null : teamInfo.teams.length == 0 ? null : changeInfo ? null :  <div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
                         </div>
                         {teamInfo == '' ? <Loading /> : teamInfo.teams.length == 0 ? <h2 className='person-content_null'></h2> : teamInfo.teams[0].teammembers.length == 0 ? <h2 className='person-content_null'>暂无队员信息，请添加</h2> : <><div className={`person-content_key person-content_member person-content_text  person-content_school`} >
                             <Row>

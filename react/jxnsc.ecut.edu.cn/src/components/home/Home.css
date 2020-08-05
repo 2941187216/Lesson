@@ -182,3 +182,27 @@
 	border: .018519rem solid #2eb3e4;
 	/* background: url('../../assets/totop.png'); */
 }
+@media screen and (max-width: 1200px) {
+    .home-title {
+        /* margin-right: 1.851852rem;
+		margin-left: 1.851852rem; */
+		
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .home-title {
+        /* margin-right: 1.851852rem;
+		margin-left: 1.851852rem; */
+		font-size: .555556rem;
+	}
+	
+}
+
+@media screen and (max-width: 600px) {
+    .home-title {
+        /* margin-right: .740741rem;
+		margin-left: .740741rem; */
+		font-size: .37037rem;
+    }
+}

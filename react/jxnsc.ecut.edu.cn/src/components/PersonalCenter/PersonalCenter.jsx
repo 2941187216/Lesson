@@ -226,6 +226,7 @@ export default function PersonalCenter(props) {
     const [professionaNamelValue, setProfessionalNameValue] = useState('')
     const [phoneValue, setPhoneValue] = useState('')
     const [idNumberValue, setIdNumberValue] = useState('')
+    const [month,setmonth] = useState('')
     // let arr5 = [...memberList]
     // let arr6 = arr5.slice(0, memberNumber.length)
     useEffect(() => {
@@ -456,7 +457,7 @@ export default function PersonalCenter(props) {
                         <div className='person-content'>
                             <div className="person-content_top person-content_text">
                                 <div className="person-content_title"><h2>{'>> 基本信息'}</h2></div>
-                                {date!=''&&date>15?null :changeInfo  ? null:<div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
+                                {month!=''&&month>7&& date!=''&&date>15?null :date!=''&&date>15?null :changeInfo  ? null:<div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
                             </div>
                             {user == '' ? <Loading /> : <><div className={`person-content_key person-content_text  person-content_school`} >
                                 <Row>

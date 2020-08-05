@@ -200,3 +200,28 @@ img {
   margin-top: 3.333333rem;
   z-index: 1000;
 }
+
+@media screen and (max-width: 1200px) {
+  .header-title {
+      /* margin-right: 1.851852rem;
+  margin-left: 1.851852rem; */
+  
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .header-title {
+      /* margin-right: 1.851852rem;
+  margin-left: 1.851852rem; */
+  font-size: .555556rem;
+}
+
+}
+
+@media screen and (max-width: 600px) {
+  .header-title {
+      /* margin-right: .740741rem;
+  margin-left: .740741rem; */
+  font-size: .37037rem;
+  }
+}
