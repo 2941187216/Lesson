@@ -195,21 +195,21 @@ export default function PersonalCenter(props) {
         },
         {
             key: 'Name',
-            type: '队长姓名',
+            type: '姓名',
             content: '刘达',
         },
         {
             key: 'phone',
-            type: '队长手机号',
+            type: '手机号',
             content: '18577',
         },
         {
             key: 'idNumber',
-            type: '队长身份证号码',
+            type: '身份证号码',
             content: '152462666',
         }, {
             key: 'mailbox',
-            type: '队长邮箱',
+            type: '邮箱',
             content: '@152462666',
         }])
     const [schoolName, setSchoolName] = useState([])
@@ -457,7 +457,7 @@ export default function PersonalCenter(props) {
                         <div className='person-content'>
                             <div className="person-content_top person-content_text">
                                 <div className="person-content_title"><h2>{'>> 基本信息'}</h2></div>
-                                {month!=''&&month>7&& date!=''&&date>15?null :date!=''&&date>15?null :changeInfo  ? null:<div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
+                                {month!=''&&month>7&& date!=''&&date>20?null :date!=''&&date>15?null :changeInfo  ? null:<div className="person-content_edit" onClick={changeInfoTrue}>编辑</div>}
                             </div>
                             {user == '' ? <Loading /> : <><div className={`person-content_key person-content_text  person-content_school`} >
                                 <Row>
@@ -479,7 +479,7 @@ export default function PersonalCenter(props) {
                                 <div className={`person-content_key person-content_text  person-content_school`} >
                                     <Row>
                                         <Col span={6}></Col>
-                                        <Col span={6}>队长姓名:</Col>
+                                        <Col span={6}>姓名:</Col>
                                         <Col span={6}>{user.realname}</Col>
                                         <Col span={6}></Col>
                                     </Row>
@@ -487,7 +487,7 @@ export default function PersonalCenter(props) {
                                 <div className={`person-content_key person-content_text  person-content_school`} >
                                     <Row>
                                         <Col span={6}></Col>
-                                        <Col span={6}>队长手机号:</Col>
+                                        <Col span={6}>手机号:</Col>
                                         <Col span={6}>{user.tephone}</Col>
                                         <Col span={6}></Col>
                                     </Row>
@@ -495,7 +495,7 @@ export default function PersonalCenter(props) {
                                 <div className={`person-content_key person-content_text  person-content_school`} >
                                     <Row>
                                         <Col span={6}></Col>
-                                        <Col span={6}>队长身份证号码:</Col>
+                                        <Col span={6}>身份证号码:</Col>
                                         <Col span={6}>{user.identitycard}</Col>
                                         <Col span={6}></Col>
                                     </Row>
@@ -503,7 +503,7 @@ export default function PersonalCenter(props) {
                                 <div className={`person-content_key person-content_text  person-content_school`} >
                                     <Row>
                                         <Col span={6}></Col>
-                                        <Col span={6}>队长邮箱:</Col>
+                                        <Col span={6}>邮箱:</Col>
                                         <Col span={6}>{user.email}</Col>
                                         <Col span={6}></Col>
                                     </Row>
@@ -549,7 +549,7 @@ export default function PersonalCenter(props) {
                                             : !scarr.includes(schoolNameValue)
                                                 ? <div className='failSubmit' onClick={() => { alert('请根据提示填写学校名称') }}>保存</div>
                                                 : nameValue == '' || nameValue == null
-                                                    ? <div className='failSubmit' onClick={() => { alert('队长名字不能为空') }}>保存</div>
+                                                    ? <div className='failSubmit' onClick={() => { alert('名字不能为空') }}>保存</div>
                                                     : phoneValue == '' || phoneValue == null
                                                         ? <div className='failSubmit' onClick={() => { alert('手机号码不能为空') }}>保存</div>
                                                         : phoneValue.length != 11

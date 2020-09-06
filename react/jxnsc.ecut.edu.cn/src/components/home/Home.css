@@ -128,6 +128,7 @@
 
 .reward .reward2 {
 	margin-bottom: .925926rem;
+	width: 80%;
 }
 
 .organization img {
@@ -203,6 +204,66 @@
     .home-title {
         /* margin-right: .740741rem;
 		margin-left: .740741rem; */
-		font-size: .37037rem;
+		font-size: 22px;
     }
+}
+
+@media screen and (max-width: 1200px) {
+    .top-nav {
+        /* margin-right: 1.851852rem;
+		margin-left: 1.851852rem; */
+		
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .top-nav {
+        /* margin-right: 1.851852rem;
+		margin-left: 1.851852rem; */
+		font-size: .555556rem;
+	}
+	
+}
+
+@media screen and (max-width: 600px) {
+    .top-nav {
+		display: flex;
+		flex-wrap: wrap;
+		height: 60px;
+		width: 300px;
+	}
+	.top-nav li{
+		flex : 0 0 11%;
+		margin: 0;
+		padding: 0 3px !important;
+		
+	}
+}
+
+@media screen and (max-width: 600px) {
+    .logo {
+		margin: 0 !important;
+		padding: 0 !important;
+		margin-top: 28px !important;
+		width: 80px!important;
+		height: 20px!important;
+		margin-right: 10px !important;
+	}
+	.logo img{
+		width: 100%;
+		height: 100%;
+	}
+}
+
+@media screen and (max-width: 600px) {
+    .navTools{
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+	.navTools li{
+		margin: 0 !important;
+		padding: 0 !important;
+		margin-top: 20px !important;
+		/* margin-right: 10px!important; */
+	}
 }

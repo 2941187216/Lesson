@@ -57,6 +57,7 @@ export default function Register() {
                     window.location.href = '#/login'
                 } else {
                     alert(response.data.msg);
+                    window.location.reload()
                 }
             })
             .catch(function (error) {

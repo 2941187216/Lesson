@@ -198,6 +198,27 @@ img {
 }
 
 .register-disclaimer  {
-    margin-top: 3.888889rem;
+    /* margin-top: 3.888889rem; */
     z-index: 1000;
+    position: absolute;
+    bottom: .37037rem;
+    right: 0;
+    left: 0;
 }
+
+@media screen and (max-width: 900px) {
+    .register-title {
+        /* margin-right: 1.851852rem;
+    margin-left: 1.851852rem; */
+    font-size: .555556rem;
+  }
+  
+  }
+  
+  @media screen and (max-width: 600px) {
+    .register-title {
+        /* margin-right: .740741rem;
+    margin-left: .740741rem; */
+    font-size: 22px;
+    }
+  }

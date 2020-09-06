@@ -61,8 +61,8 @@
     position: absolute;
     right: 5px;
     cursor: pointer;
-    width: 60px;
-    height: 30px;
+    width: 1.111111rem;
+    height: .555556rem;
     background-color: #18bccd;
     top: 20px;
     display: flex;
@@ -276,6 +276,7 @@
 }
 
 .person-content_memberTitle {
+    font-size: .259259rem;
     background-color: #18bccd;
     color: black;
     border-radius: 2px;
@@ -311,5 +312,14 @@
     .person-content {
         margin-right: .740741rem;
         margin-left: .740741rem;
+    }
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .person-content_edit {
+       width: 40px !important;
+       height: 20px !important;
     }
 }

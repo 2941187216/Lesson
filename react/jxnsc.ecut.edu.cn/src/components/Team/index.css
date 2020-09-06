@@ -30,6 +30,7 @@
     align-items: center;
     justify-content: center;
     border-radius: .092593rem;
+    cursor: pointer;
 }
 .ant-col-red div{
     background-color: red;

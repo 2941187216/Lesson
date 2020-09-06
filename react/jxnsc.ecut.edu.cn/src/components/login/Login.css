@@ -197,8 +197,13 @@ img {
 }
 
 .disclaimer  {
-  margin-top: 3.333333rem;
+  /* margin-top: 3.333333rem; */
   z-index: 1000;
+  position: absolute;
+  bottom: .37037rem;
+  z-index: 1000;
+  right: 0;
+  left: 0;
 }
 
 @media screen and (max-width: 1200px) {
@@ -222,6 +227,6 @@ img {
   .header-title {
       /* margin-right: .740741rem;
   margin-left: .740741rem; */
-  font-size: .37037rem;
+  font-size: 22px;
   }
 }

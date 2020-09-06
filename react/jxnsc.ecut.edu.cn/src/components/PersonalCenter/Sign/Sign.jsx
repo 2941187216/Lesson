@@ -21,7 +21,7 @@ export default function Sign(props) {
             <div className="sign-content">
                 <div className="sign-content_info">
                     <h3>是否报名</h3>
-                    <p>是否确认报名，点击确认后报名信息将无法更改！</p>
+                    <p>报名时间截止2020年8月20日23.59，请及时完善团队信息！</p>
                     <div className="sign-button">
                         <div onClick={() => { props.changeSignNo(); handleSign() }} className="sign-pass">确认</div>
                         <div onClick={() => { props.changeSignNo() }} className="sign-cancel">取消</div>
